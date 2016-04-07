@@ -82,6 +82,25 @@ LightingScene.prototype.init = function(application) {
 	this.enableTextures(true);
 
 
+	//boards
+	//slidesAppearance
+	this.slidesAppearance = new CGFappearance(this);
+	this.slidesAppearance.loadTexture("../resources/images/slides.png");
+	this.slidesAppearance.setDiffuse(0.9,0.9,0.9,1);
+	this.slidesAppearance.setSpecular(0.1,0.1,0.1,1);
+	this.slidesAppearance.setShininess(30);
+	this.slidesAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE')
+
+	//boardAppearance
+	this.boardAppearance = new CGFappearance(this);
+	this.boardAppearance.loadTexture("../resources/images/board.png");
+	this.boardAppearance.setDiffuse(0.6,0.6,0.6,1);
+	this.boardAppearance.setSpecular(0.9,0.9,0.9,1);
+	this.boardAppearance.setShininess(120);
+	this.boardAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE')
+
+
+
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -201,8 +220,8 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(4, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-		
-		this.materialA.apply();
+		this.slidesAppearance.apply();
+		//this.materialA.apply();
 		this.boardA.display();
 	this.popMatrix();
 
@@ -210,8 +229,8 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(10.5, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-		
-		this.materialB.apply();
+		this.boardAppearance.apply();
+		//this.materialB.apply();
 		this.boardB.display();
 	this.popMatrix();
 

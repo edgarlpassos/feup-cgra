@@ -54,8 +54,8 @@ Plane.prototype.initBuffers = function() {
 			this.normals.push(0,0,1);
 
 			// texCoords should be computed here; uncomment and fill the blanks
-			// this.texCoords.push(..., ...);
-
+			this.texCoords.push(0.5 + xCoord,0.5 - yCoord);
+			
 			xCoord += this.patchLength;
 		}
 		yCoord -= this.patchLength;
