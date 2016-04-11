@@ -26,6 +26,7 @@
  	this.vertices = [];
  	this.normals = [];
  	this.indices = [];
+ 	this.texCoords = [];
 	
 	var ang=(2*Math.PI)/this.slices;
 
@@ -49,6 +50,11 @@
 			this.indices.push((j*4*this.slices)+i*4,(j*4*this.slices)+i*4+1,(j*4*this.slices)+i*4+2);
 			this.indices.push((j*4*this.slices)+i*4+1, (j*4*this.slices)+i*4+3,(j*4*this.slices)+i*4+2);
 			
+
+			this.texCoords.push(0, 1);
+			this.texCoords.push(1, 1);
+			this.texCoords.push(1, 0);
+			this.texCoords.push(0, 0);
 		}
 	}
 

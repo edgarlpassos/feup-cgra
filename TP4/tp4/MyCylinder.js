@@ -26,6 +26,7 @@
  	this.vertices = [];
  	this.normals = [];
  	this.indices = [];
+ 	this.texCoords = [];
 	
 	var ang=(2*Math.PI)/this.slices;
 
@@ -34,6 +35,12 @@
 //Every vertice (and index) gets pushed at least twice, with the ones that are shared
 //by stacks getting pushed 4 times
 
+	var patchLengthx = 1 / this.slices;
+ 	var patchLengthy = 1 / this.stacks;
+ 	var xCoord =0;
+ 	var yCoord =0;
+
+	
 	for(j=0;j<this.stacks;j++){
  		for(i=0;i<this.slices;i++){
  			this.vertices.push(Math.cos(ang*i), Math.sin(ang*i), j);
@@ -41,16 +48,19 @@
 			this.vertices.push(Math.cos(ang*i), Math.sin(ang*i), j+1);
 			this.vertices.push(Math.cos(ang*(i+1)), Math.sin(ang*(i+1)), j+1);
 
-/*
-			this.normals.push(Math.cos(ang*(i+0.5)), Math.sin(ang*(i+0.5)), 0);
-			this.normals.push(Math.cos(ang*(i+0.5)), Math.sin(ang*(i+0.5)), 0);
-			this.normals.push(Math.cos(ang*(i+0.5)), Math.sin(ang*(i+0.5)), 0);
-			this.normals.push(Math.cos(ang*(i+0.5)), Math.sin(ang*(i+0.5)), 0);
-*/
 			this.indices.push((j*4*this.slices)+i*4,(j*4*this.slices)+i*4+1,(j*4*this.slices)+i*4+2);
 			this.indices.push((j*4*this.slices)+i*4+1, (j*4*this.slices)+i*4+3,(j*4*this.slices)+i*4+2);
 			
+			this.texCoords.push(0, 1);
+			this.texCoords.push(1, 1);
+			this.texCoords.push(1, 0);
+			this.texCoords.push(0, 0);
+			
 		}
+
+		xCoord =0;
+		yCoord += patchLengthy;
+
 	}
 
 	for(j=0;j<this.stacks;j++){

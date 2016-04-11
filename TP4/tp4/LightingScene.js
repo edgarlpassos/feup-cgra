@@ -99,7 +99,11 @@ LightingScene.prototype.init = function(application) {
 	this.boardAppearance.setShininess(120);
 	this.boardAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE')
 
-
+	//marbleAppearance
+	this.marbleAppearance = new CGFappearance(this);
+	this.marbleAppearance.loadTexture("../resources/images/marble.png");
+	this.marbleAppearance.setSpecular(0.9,0.9,0.9,1);
+	this.marbleAppearance.setShininess(120);
 
 };
 
@@ -240,6 +244,7 @@ LightingScene.prototype.display = function() {
 		this.scale(1,0.4,1);
 		this.translate(5,0,2);
 		this.rotate(-90*degToRad,1,0,0);
+		this.marbleAppearance.apply();
 		this.prism.display();
 	this.popMatrix();
 
@@ -248,6 +253,8 @@ LightingScene.prototype.display = function() {
 		this.scale(1,0.4,1);
 		this.translate(11,0,12);
 		this.rotate(-90*degToRad,1,0,0);
+		this.marbleAppearance.apply();
+		//this.floorAppearance.apply();
 		this.cylinder.display();
 	this.popMatrix();
 

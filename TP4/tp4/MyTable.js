@@ -25,7 +25,6 @@ function MyTable(scene) {
 	this.tableAppearance.setSpecular(0.1,0.1,0.1,1);
 	this.tableAppearance.setShininess(30);
 
-
 	this.cube = new MyUnitCubeQuad(this.scene);
 	this.cube.initBuffers();
 };
