@@ -101,9 +101,10 @@ LightingScene.prototype.init = function(application) {
 
 	//marbleAppearance
 	this.marbleAppearance = new CGFappearance(this);
-	this.marbleAppearance.loadTexture("../resources/images/marble.png");
+	this.marbleAppearance.loadTexture("../resources/images/marble2.png");
 	this.marbleAppearance.setSpecular(0.9,0.9,0.9,1);
 	this.marbleAppearance.setShininess(120);
+	this.marbleAppearance.setDiffuse(0.6,0.6,0.6,1);
 
 };
 

@@ -43,18 +43,20 @@
 	
 	for(j=0;j<this.stacks;j++){
  		for(i=0;i<this.slices;i++){
- 			this.vertices.push(Math.cos(ang*i), Math.sin(ang*i), j);
-			this.vertices.push(Math.cos(ang*(i+1)), Math.sin(ang*(i+1)), j);
-			this.vertices.push(Math.cos(ang*i), Math.sin(ang*i), j+1);
-			this.vertices.push(Math.cos(ang*(i+1)), Math.sin(ang*(i+1)), j+1);
+ 			this.vertices.push(Math.cos(ang*i), Math.sin(ang*i), j); //vertice 4*i
+			this.vertices.push(Math.cos(ang*(i+1)), Math.sin(ang*(i+1)), j); //vertice 4*i + 1
+			this.vertices.push(Math.cos(ang*i), Math.sin(ang*i), j+1);//vertice 4*i + 2
+			this.vertices.push(Math.cos(ang*(i+1)), Math.sin(ang*(i+1)), j+1); //vertice 4*i + 3
 
 			this.indices.push((j*4*this.slices)+i*4,(j*4*this.slices)+i*4+1,(j*4*this.slices)+i*4+2);
 			this.indices.push((j*4*this.slices)+i*4+1, (j*4*this.slices)+i*4+3,(j*4*this.slices)+i*4+2);
 			
-			this.texCoords.push(0, 1);
-			this.texCoords.push(1, 1);
-			this.texCoords.push(1, 0);
-			this.texCoords.push(0, 0);
+			this.texCoords.push(xCoord, yCoord);
+			this.texCoords.push(xCoord+patchLengthx, yCoord);
+			this.texCoords.push(xCoord, yCoord+patchLengthy);
+			this.texCoords.push(xCoord+patchLengthx, yCoord+patchLengthy);
+
+			xCoord += patchLengthx;
 			
 		}
 
