@@ -79,6 +79,9 @@ LightingScene.prototype.init = function(application) {
 	this.prism=new MyPrism(this,8,20);
 	this.cylinder = new MyCylinder(this,8,20);
 
+	//clock
+	this.clock = new MyClock(this,12,1);
+
 	this.enableTextures(true);
 
 
@@ -180,7 +183,7 @@ LightingScene.prototype.display = function() {
 	// ---- BEGIN Primitive drawing section
 
 	// Floor
-	this.pushMatrix();
+	/*this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
 		this.rotate(-90 * degToRad, 1, 0, 0);
 		this.scale(15, 15, 0.2);
@@ -241,23 +244,25 @@ LightingScene.prototype.display = function() {
 
 
 	//Prism acting as column
-	this.pushMatrix();
+	/*this.pushMatrix();
 		this.scale(1,0.4,1);
 		this.translate(5,0,2);
 		this.rotate(-90*degToRad,1,0,0);
 		this.marbleAppearance.apply();
 		this.prism.display();
-	this.popMatrix();
+	this.popMatrix();*/
 
 	//Cylinder acting as column
-	this.pushMatrix();
+	/*this.pushMatrix();
 		this.scale(1,0.4,1);
 		this.translate(11,0,12);
 		this.rotate(-90*degToRad,1,0,0);
 		this.marbleAppearance.apply();
 		//this.floorAppearance.apply();
 		this.cylinder.display();
-	this.popMatrix();
+	this.popMatrix();*/
+
+	this.clock.display();
 
 	// ---- END Primitive drawing section
 };
