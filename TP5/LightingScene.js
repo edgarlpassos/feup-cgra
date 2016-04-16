@@ -277,3 +277,7 @@ LightingScene.prototype.display = function() {
 
 	// ---- END Primitive drawing section
 };
+
+LightingScene.prototype.update = function(currTime){
+	this.clock.update(currTime);
+}

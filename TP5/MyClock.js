@@ -8,13 +8,16 @@
 	this.slices = slices;
 	this.stacks = stacks;
 	this.scene = scene;
+
+	var d = new Date();
+	this.startTime = d.getTime();
+
 	this.cylinder = new MyCylinder(this.scene,slices,stacks);
 	this.clockFace = new MyCircle(this.scene,slices);
 	//clock hands
-	this.secondsHand = new MyClockHand(this.scene);
-	this.minutesHand = new MyClockHand(this.scene);
-	this.hoursHand = new MyClockHand(this.scene);
-
+	this.secondsHand = new MyClockHand(this.scene,0.9);
+	this.minutesHand = new MyClockHand(this.scene,0.75);
+	this.hoursHand = new MyClockHand(this.scene,0.5);
 
     this.clockFaceTex = new CGFappearance(this.scene);
     this.clockFaceTex.setDiffuse(0.9,0.9,0.9,1);
@@ -57,27 +60,39 @@
  	this.scene.popMatrix();
 
  	this.scene.pushMatrix();
- 		this.secondsHand.setAngle(-135);
 		this.scene.translate(0,0,this.stacks+0.05);
-		this.scene.scale(1,0.9,1);
  		this.secondsAppearance.apply();
  		this.secondsHand.display();
  	this.scene.popMatrix();
 
  	this.scene.pushMatrix();
- 		this.minutesHand.setAngle(0);
 		this.scene.translate(0,0,this.stacks+0.05);
-		this.scene.scale(1,0.75,1);
  		this.minutesAppearance.apply();
  		this.minutesHand.display();
  	this.scene.popMatrix();
 
  	this.scene.pushMatrix();
- 		this.hoursHand.setAngle(90);
 		this.scene.translate(0,0,this.stacks+0.05);
-		this.scene.scale(1,0.5,1);
  		this.hoursAppearance.apply();
  		this.hoursHand.display();
  	this.scene.popMatrix();
 
  };
+
+ MyClock.prototype.update = function(currTime){
+	
+	var timeDiff = currTime - this.startTime;
+	var secondsInc = 360 * 1/60;
+	var minutesInc = secondsInc/60;
+	var hoursInc = minutesInc/12;
+
+	if(timeDiff >= 1000){
+		this.startTime = currTime;
+
+		this.secondsHand.setAngle(this.secondsHand.currAng + secondsInc);
+		this.minutesHand.setAngle(this.minutesHand.currAng + minutesInc);
+		this.hoursHand.setAngle(this.hoursHand.currAng + hoursInc);
+	}
+
+	this.secondsHand.display();
+}
