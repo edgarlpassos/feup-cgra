@@ -111,6 +111,9 @@ LightingScene.prototype.init = function(application) {
 	this.marbleAppearance.setShininess(120);
 	this.marbleAppearance.setDiffuse(0.6,0.6,0.6,1);
 
+	//update time
+	this.setUpdatePeriod(100);
+
 };
 
 LightingScene.prototype.initCameras = function() {
