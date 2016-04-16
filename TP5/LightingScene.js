@@ -268,7 +268,6 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(7.2,7.2,0);
 		this.scale(.5,.5,0.1);
-		this.clock.secondsHand.setAngle(90);
 		this.clock.display();
 	this.popMatrix();
 
