@@ -114,6 +114,14 @@ LightingScene.prototype.init = function(application) {
 	//update time
 	this.setUpdatePeriod(100);
 
+	//paper plane
+	this.paperPlane = new MyPaperPlane(this);
+
+	this.planeAppearance = new CGFappearance(this);
+	this.planeAppearance.setDiffuse(0.95,0.95,0.95,1);
+	this.planeAppearance.setSpecular(0.05,0.05,0.05,1);
+	this.planeAppearance.setShininess(20);
+
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -274,10 +282,33 @@ LightingScene.prototype.display = function() {
 		this.clock.display();
 	this.popMatrix();
 
+	//Paper plane
+	this.pushMatrix();
+		
+		this.translate(this.paperPlane.x, this.paperPlane.y, this.paperPlane.z);
+		if(!this.paperPlane.isFalling){	
+			this.rotate(3*Math.PI/2,0,1,0);
+			this.rotate(Math.PI/2,1,0,0);
+		}
+
+		else if (this.paperPlane.isFalling){
+			this.rotate(Math.PI,0,0,1);
+			this.rotate(-Math.PI/2,0,1,0);
+		}
+
+		else if (this.paperPlane.isOnTheGround){
+			this.rotate(3*Math.PI/2,0,1,0);
+			this.rotate(Math.PI/2,1,0,0);
+		}
+
+		this.planeAppearance.apply();
+		this.paperPlane.display();
+	this.popMatrix();
 
 	// ---- END Primitive drawing section
 };
 
 LightingScene.prototype.update = function(currTime){
 	this.clock.update(currTime);
+	this.paperPlane.update();
 }
