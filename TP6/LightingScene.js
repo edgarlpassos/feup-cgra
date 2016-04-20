@@ -124,8 +124,11 @@ LightingScene.prototype.init = function(application) {
 
 	//TP6
 
-	this.option1 = true;
-	this.option2 = false;
+	this.LeftBoardLight = true;
+	this.RightBoardLight = true;
+	this.LeftCenterLight = true;
+	this.RightCenterLight = true;
+	this.ClockActive = true;
 	this.speed = 3;
 
 
@@ -141,19 +144,25 @@ LightingScene.prototype.initLights = function() {
 	//this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
 	this.setGlobalAmbientLight(0,0,0, 1.0);
 	// Positions for four lights
+	// 0 - LeftBoardLight
 	this.lights[0].setPosition(4, 6, 1, 1);
 	this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 	
+	//1 - RightBoardLight
 	this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
 	this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 
+
+	//2 - RightCenterLight
 	this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
 	this.lights[2].setVisible(true); // show marker on light position (different from enabled)
-	this.lights[2].setSpecular(1,1,1,1);
+	this.lights[2].setSpecular(1.0,1.0,1.0,1.0);
 	this.lights[2].setConstantAttenuation(0);
 	this.lights[2].setLinearAttenuation(1);
 	this.lights[2].setQuadraticAttenuation(0);
+	
 
+	//3 - LeftCenterLight
 	this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
 	this.lights[3].setVisible(true); // show marker on light position (different from enabled)
 	this.lights[3].setConstantAttenuation(0);
@@ -325,8 +334,38 @@ LightingScene.prototype.display = function() {
 };
 
 LightingScene.prototype.update = function(currTime){
-	this.clock.update(currTime);
+
+	if(this.ClockActive)
+		this.clock.update(currTime);
+
+	if(this.LeftBoardLight)
+		this.lights[0].enable();
+	
+	if(!this.LeftBoardLight)
+		this.lights[0].disable();
+	
+	if(this.RightBoardLight)
+		this.lights[1].enable();
+	
+	if(!this.RightBoardLight)
+		this.lights[1].disable();
+
+	if(!this.LeftCenterLight)
+		this.lights[3].disable();
+	
+	if(this.LeftCenterLight)
+		this.lights[3].enable();
+
+	if(!this.RighCenterLight)
+		this.lights[2].disable();
+
+	if(this.RighCenterLight)
+		this.lights[2].enable();
+		
+
 	this.paperPlane.update();
+
+	//if
 };
 
 LightingScene.prototype.doSomething = function(){
