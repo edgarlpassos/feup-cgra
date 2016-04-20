@@ -3,87 +3,48 @@
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
-function MyPaperPlane(scene) {
+function MyDrone(scene) {
 	CGFobject.call(this,scene);
 
-    this.x = 12;
-    this.y = 3.75;
-    this.z = 8;
+	this.x = 7.5;
+	this.y = 4;
+	this.z = 7.5;
 
-    this.isFalling = false;
-    this.isOnTheGround = false;
+	this.angle = -145; //degrees
+	
 	this.initBuffers();
 };
 
 
-MyPaperPlane.prototype = Object.create(CGFobject.prototype);
-MyPaperPlane.prototype.constructor=MyPaperPlane;
+MyDrone.prototype = Object.create(CGFobject.prototype);
+MyDrone.prototype.constructor=MyDrone;
 
-MyPaperPlane.prototype.initBuffers = function () {
+MyDrone.prototype.initBuffers = function () {
 	this.vertices = [
-            0, 1, 0,	//0
-            0.5, 0, 0,	//1
-            -0.5, 0, 0,	//2
-            0,0,0.25,   //3
-            0,0,0,     //4
+	0.5, 0.3, 0,
+	-0.5, 0.3, 0,
+	0,0.3,2];
 
-             0, 1, 0,	//5
-            0.5, 0, 0,	//6
-            -0.5, 0, 0,	//7
-            0,0,0.25,   //8
-            0,0,0     //9
-			];
 
-	this.indices = [
-			2, 1, 0,
-			5,6,7,
-            3,4,0,
-            5,9,8
-     ];
+	this.indices = [0,1,2];
 
-     this.normals = [
-            0,0,1,
-            0,0,1,
-            0,0,1,
-            1,0,0,
-            0,0,-1,
-            0,0,-1,
-            0,0,-1,
-            0,0,-1,
-            -1,0,0,
-            0,0,0
-
-            
-     ];
-
-  
-
-   
+	
+     //this.normals = [];
 		
 	this.primitiveType=this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
 };
 
-MyPaperPlane.prototype.update = function(){
+MyDrone.prototype.draw = function() {
 
-    if(!this.isOnTheGround){
-        if(!this.isFalling){
-            this.x -= 0.2;
-            this.y += 0.05;   
-        }
+	this.scene.pushMatrix();
+		this.scene.translate(this.x,this.y,this.z);
+		this.scene.rotate(this.angle*Math.PI/180,0,1,0);
+		this.display();
+   	this.scene.popMatrix();
+        
+};
 
-        else{
-            this.y -= 0.5;
-        }
-
-        if(this.x <= 1.25)
-            this.isFalling = true;
-
-    }
-
-     if(this.y <= 0.45){
-            this.isOnTheGround = true;
-            this.isFalling = false;
-     }
+MyDrone.prototype.update = function(){
         
 }
