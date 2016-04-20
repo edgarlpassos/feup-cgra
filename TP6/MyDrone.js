@@ -45,6 +45,33 @@ MyDrone.prototype.draw = function() {
         
 };
 
+MyDrone.prototype.moveLeft = function(){
+	this.angle=this.angle+4;
+}
+
+MyDrone.prototype.moveRight = function(){
+	this.angle=this.angle-4;
+}
+
+MyDrone.prototype.moveFront = function(){
+this.z+=Math.cos(this.angle*Math.PI/180);
+this.x+=Math.sin(this.angle*Math.PI/180);
+
+}
+
+MyDrone.prototype.goBack = function(){
+this.z-=Math.cos(this.angle*Math.PI/180);
+this.x-=Math.sin(this.angle*Math.PI/180);
+}
+
+MyDrone.prototype.goUp = function(){
+this.y+=1;
+}
+
+MyDrone.prototype.goDown = function(){
+this.y-=1;
+}
+
 MyDrone.prototype.update = function(){
         
 }

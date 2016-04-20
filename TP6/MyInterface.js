@@ -19,7 +19,6 @@ MyInterface.prototype.constructor = MyInterface;
 MyInterface.prototype.init = function(application) {
 	// call CGFinterface init
 	CGFinterface.prototype.init.call(this, application);
-	
 	// init GUI. For more information on the methods, check:
 	//  http://workshop.chromeexperiments.com/examples/gui
 	
@@ -68,7 +67,54 @@ MyInterface.prototype.processKeyboard = function(event) {
 	switch (event.keyCode)
 	{
 		case (65):	// only works for capital 'A', as it is
+			this.scene.drone.moveLeft();
 			console.log("Key 'A' pressed");
+			break;
+		case (97):	//a
+			this.scene.drone.moveLeft();
+			console.log("Key 'A' pressed");
+			break;
+		case (68)://D
+			this.scene.drone.moveRight();
+			console.log("Key D pressed");
+			break;
+		case(100)://d
+			this.scene.drone.moveRight();
+			console.log("Key D pressed");
+			break;
+		case(119)://w
+			this.scene.drone.moveFront();
+			console.log("Key W pressed");
+			break;
+		case(87)://W
+			this.scene.drone.moveFront();
+			console.log("Key W pressed");
+			break;
+		case(83)://S
+			this.scene.drone.goBack();
+			console.log("Key S pressed");
+			break;
+		case(115): //s
+			this.scene.drone.goBack();
+			console.log("Key S pressed");
+			break;
+		case(105): //i
+			this.scene.drone.goUp();
+			console.log("Key S pressed");
+			break;
+		case(73): //I
+			this.scene.drone.goUp();
+			console.log("Key S pressed");
+			break;
+		case(74): //J
+			this.scene.drone.goDown();
+			console.log("Key S pressed");
+			break;
+		case(106): //j
+			this.scene.drone.goDown();
+			console.log("Key S pressed");
+			break;
+
 	};
 };
 
