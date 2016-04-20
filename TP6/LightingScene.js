@@ -160,7 +160,7 @@ LightingScene.prototype.initLights = function() {
 	this.lights[2].setConstantAttenuation(0);
 	this.lights[2].setLinearAttenuation(1);
 	this.lights[2].setQuadraticAttenuation(0);
-	
+
 
 	//3 - LeftCenterLight
 	this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
@@ -178,6 +178,10 @@ LightingScene.prototype.initLights = function() {
 	this.lights[1].setAmbient(0, 0, 0, 1);
 	this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
 	this.lights[1].enable();
+
+	this.lights[2].setAmbient(0, 0, 0, 1);
+	this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+	this.lights[2].enable();
 };
 
 LightingScene.prototype.updateLights = function() {
@@ -365,7 +369,6 @@ LightingScene.prototype.update = function(currTime){
 
 	this.paperPlane.update();
 
-	//if
 };
 
 LightingScene.prototype.doSomething = function(){
