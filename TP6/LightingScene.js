@@ -216,7 +216,7 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
-	
+/*	
 	// Floor
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -325,7 +325,7 @@ LightingScene.prototype.display = function() {
 
 		this.planeAppearance.apply();
 		this.paperPlane.display();
-	this.popMatrix();
+	this.popMatrix();*/
 
 	//Drone
 	this.drone.draw();
@@ -360,10 +360,10 @@ LightingScene.prototype.update = function(currTime){
 	if(this.LeftCenterLight)
 		this.lights[3].enable();
 
-	if(!this.RighCenterLight)
+	if(!this.RightCenterLight)
 		this.lights[2].disable();
 
-	if(this.RighCenterLight)
+	if(this.RightCenterLight)
 		this.lights[2].enable();
 		
 
