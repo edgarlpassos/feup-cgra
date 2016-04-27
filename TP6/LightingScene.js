@@ -360,10 +360,10 @@ LightingScene.prototype.update = function(currTime){
 	if(this.LeftCenterLight)
 		this.lights[3].enable();
 
-	if(!this.RighCenterLight)
+	if(!this.RightCenterLight)
 		this.lights[2].disable();
 
-	if(this.RighCenterLight)
+	if(this.RightCenterLight)
 		this.lights[2].enable();
 		
 
