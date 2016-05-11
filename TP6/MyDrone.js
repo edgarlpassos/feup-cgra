@@ -39,13 +39,13 @@ MyDrone.prototype.draw = function() {
   	
 	//first arm
 	this.scene.pushMatrix();
-		this.scene.scale(0.2,0.2,0.6);
+		this.scene.scale(0.25,0.2,0.4);
 		this.arm1.display();
 	this.scene.popMatrix();
 
 	//end of the first arm
 	this.scene.pushMatrix();
-		this.scene.translate(0,0.4,4.2);
+		this.scene.translate(0,0.4,2.8);
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(0.2,0.27,0.05);
 		this.hand1.draw();
@@ -54,14 +54,14 @@ MyDrone.prototype.draw = function() {
 	//second arm
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI/2,0,1,0);
-		this.scene.scale(0.2,0.2,0.6);
+		this.scene.scale(0.25,0.2,0.4);
 		this.arm2.display();
 	this.scene.popMatrix();
 
 	//end of the second arm
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI/2,0,1,0);
-		this.scene.translate(0,0.4,4.2);
+		this.scene.translate(0,0.4,2.8);
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(0.2,0.27,0.05);
 		this.hand2.draw();
@@ -70,14 +70,14 @@ MyDrone.prototype.draw = function() {
 	//third arm
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI,1,0,0);
-		this.scene.scale(0.2,0.2,0.6);
+		this.scene.scale(0.25,0.2,0.4);
 		this.arm3.display();
 	this.scene.popMatrix();
 
 	//end of the second arm
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI,0,1,0);
-		this.scene.translate(0,0.4,4.2);
+		this.scene.translate(0,0.4,2.8);
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(0.2,0.27,0.05);
 		this.hand3.draw();
@@ -86,14 +86,14 @@ MyDrone.prototype.draw = function() {
 	//fourth arm
 	this.scene.pushMatrix();
 		this.scene.rotate(-Math.PI/2,0,1,0);
-		this.scene.scale(0.2,0.2,0.6);
+		this.scene.scale(0.25,0.2,0.4);
 		this.arm4.display();
 	this.scene.popMatrix();
 
 	//end of the fourth arm
 	this.scene.pushMatrix();
 		this.scene.rotate(-Math.PI/2,0,1,0);
-		this.scene.translate(0,0.4,4.2);
+		this.scene.translate(0,0.4,2.8);
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(0.2,0.27,0.05);
 		this.hand4.draw();
