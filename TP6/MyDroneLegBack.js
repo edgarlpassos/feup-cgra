@@ -69,6 +69,10 @@
 			
 
 		}
+
+		
+			
+		
 	}
 
  	this.primitiveType = this.scene.gl.TRIANGLES;

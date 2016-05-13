@@ -133,7 +133,9 @@ LightingScene.prototype.init = function(application) {
 
 
 	this.drone= new MyDrone(this);
-	this.test = new MyCylinderWithTop(this,12,2);
+
+	this.dls = new MyDroneLegSide1(this);
+	this.dls1 = new MyDroneLegSide2(this);
 
 };
 
@@ -218,6 +220,7 @@ LightingScene.prototype.display = function() {
 
 	// ---- BEGIN Primitive drawing section
 
+	/*
 	// Floor
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -335,9 +338,14 @@ LightingScene.prototype.display = function() {
 		this.drone.draw();
 	this.popMatrix();
 
-
+	*/
 	//this.drone.draw();
 	//this.test.draw();
+	
+
+	this.dls.display();
+	this.dls1.display();
+	
 	// ---- END Primitive drawing section
 	
 
