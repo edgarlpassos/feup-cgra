@@ -87,5 +87,4 @@
 		this.base.display();
 	this.scene.popMatrix();
 	this.display();
-	
  };
