@@ -2,8 +2,10 @@
  * MyDroneLegSide2
  * @constructor
  */
- function MyDroneLegSide2(scene) {
+ function MyDroneLegSide2(scene,angle) {
  	CGFobject.call(this,scene);
+
+ 	this.const_ang = angle * Math.PI/180;
 	
 	this.base = new MyCircle(this.scene,12);
  	this.initBuffers();
@@ -23,36 +25,35 @@
 	
 	var ang1=(2*Math.PI)/12;
 	var ang2=(Math.PI)/12;
-	var const_ang = 2*Math.PI/180;
 	var n_verts = 0;
 
 
 	for(var j = 0; j < 12; j++){
 
-		this.vertices.push(Math.sin(const_ang), 
+		this.vertices.push(Math.sin(this.const_ang), 
 							Math.cos(j*ang2),
-							Math.cos(const_ang)*Math.sin(j*ang2)
+							Math.cos(this.const_ang)*Math.sin(j*ang2)
 							);
 
 		n_verts++;
 
-		this.vertices.push(Math.sin(const_ang), 
+		this.vertices.push(Math.sin(this.const_ang), 
 							int_rad * Math.cos(j*ang2),
-							int_rad * Math.cos(const_ang)*Math.sin(j*ang2)
+							int_rad * Math.cos(this.const_ang)*Math.sin(j*ang2)
 							);
 
 		n_verts++;
 
-		this.vertices.push(Math.sin(const_ang), 
+		this.vertices.push(Math.sin(this.const_ang), 
 							Math.cos((j+1)*ang2),
-							Math.cos(const_ang)*Math.sin((j+1)*ang2)
+							Math.cos(this.const_ang)*Math.sin((j+1)*ang2)
 							);
 
 		n_verts++;
 
-		this.vertices.push(Math.sin(const_ang), 
+		this.vertices.push(Math.sin(this.const_ang), 
 							int_rad * Math.cos((j+1)*ang2),
-							int_rad * Math.cos(const_ang)*Math.sin((j+1)*ang2)
+							int_rad * Math.cos(this.const_ang)*Math.sin((j+1)*ang2)
 							);
 
 		n_verts++;

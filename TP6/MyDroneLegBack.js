@@ -1,21 +1,22 @@
 /**
- * MyHemisphere
+ * MyDroneLegBack
  * @constructor
  */
- function MyHemisphere(scene, slices, stacks) {
+ function MyDroneLegBack(scene, angle1, angle2, int_rad) {
  	CGFobject.call(this,scene);
 	
-	this.slices = slices;
-	this.stacks = stacks;
+	this.const_ang1 = angle1 * Math.PI/180;
+	this.const_ang2 = angle2 * Math.PI/180;
+	this.int_rad = int_rad;
 	
 	this.base = new MyCircle(this.scene,12);
  	this.initBuffers();
  };
 
- MyHemisphere.prototype = Object.create(CGFobject.prototype);
- MyHemisphere.prototype.constructor = MyHemisphere;
+ MyDroneLegBack.prototype = Object.create(CGFobject.prototype);
+ MyDroneLegBack.prototype.constructor = MyDroneLegBack;
 
- MyHemisphere.prototype.initBuffers = function() {
+ MyDroneLegBack.prototype.initBuffers = function() {
  	/*
  	* TODO:
  	* Replace the following lines in order to build a prism with a **single mesh**.
@@ -27,52 +28,67 @@
  	this.vertices = [];
  	this.normals = [];
  	this.indices = [];
-	
-	var ang1=(2*Math.PI)/this.slices;
-	var ang2=(Math.PI)/this.slices;
+	var ang = Math.PI / 12;
 	var n_verts = 0;
 
 
-	for(var i=0;i<this.slices;i++){
-		for(var j = 0; j < this.slices/2; j++){
-			this.vertices.push(Math.cos(ang1*i)*Math.sin(ang2*j), Math.sin(ang1*i)*Math.sin(ang2*j)
-			, Math.cos(ang2*j));
-			n_verts++;
-			this.vertices.push(Math.cos(ang1*(i+1))*Math.sin(ang2*j), Math.sin(ang1*(i+1))*Math.sin(ang2*j)
-			, Math.cos(ang2*j));
-			n_verts++;
+	for(var j = 0; j < 12; j++){
 
-			this.vertices.push(Math.cos(ang1*i)*Math.sin(ang2*(j+1)), Math.sin(ang1*i)*Math.sin(ang2*(j+1))
-			, Math.cos(ang2*(j+1)));
-			n_verts++;
-		
-			this.vertices.push(Math.cos(ang1*(i+1))*Math.sin(ang2*(j+1)), Math.sin(ang1*(i+1))*Math.sin(ang2*(j+1))
-			, Math.cos(ang2*(j+1)));	
-			n_verts++;
+		this.vertices.push(Math.sin(this.const_ang1), 
+						Math.cos(j*ang) * this.int_rad,
+						Math.cos(this.const_ang1)*Math.sin(j*ang) * this.int_rad
+						);
 
-			this.indices.push(n_verts - 2, n_verts - 3, n_verts-4);
-			this.indices.push(n_verts - 2, n_verts - 1, n_verts-3);
+		n_verts++;	
 
-			this.normals.push(Math.cos(ang1*i)*Math.sin(ang2*j), Math.sin(ang1*i)*Math.sin(ang2*j)
-			, Math.cos(ang2*j));
+		this.vertices.push(Math.sin(this.const_ang2), 
+						Math.cos(j*ang) * this.int_rad,
+						Math.cos(this.const_ang2)*Math.sin(j*ang) * this.int_rad
+						);
+
+		n_verts++;		
+
+		this.vertices.push(Math.sin(this.const_ang1), 
+						Math.cos((j+1)*ang) * this.int_rad,
+						Math.cos(this.const_ang1)*Math.sin((j+1)*ang) * this.int_rad
+						);
+
+		n_verts++;			
+
+		this.vertices.push(Math.sin(this.const_ang2), 
+							Math.cos((j+1)*ang) * this.int_rad,
+							Math.cos(this.const_ang2)*Math.sin((j+1)*ang) * this.int_rad
+							);
+
+		n_verts++;
+
+
+		this.indices.push(n_verts - 4, n_verts - 3, n_verts - 1);
+		this.indices.push(n_verts - 4, n_verts - 1, n_verts - 2);
+
+
+		this.normals.push(-Math.sin(this.const_ang1), 
+						-Math.cos(j*ang),
+						-Math.cos(this.const_ang1)*Math.sin(j*ang)
+						);
+
+		this.normals.push(-Math.sin(this.const_ang2), 
+						-Math.cos(j*ang),
+						-Math.cos(this.const_ang2)*Math.sin(j*ang)
+						);
+	
+
+		this.normals.push(-Math.sin(this.const_ang1), 
+						-Math.cos((j+1)*ang),
+						-Math.cos(this.const_ang1)*Math.sin((j+1)*ang)
+						);
 			
-			this.normals.push(Math.cos(ang1*(i+1))*Math.sin(ang2*j), Math.sin(ang1*(i+1))*Math.sin(ang2*j)
-			, Math.cos(ang2*j));
-			
 
-			this.normals.push(Math.cos(ang1*i)*Math.sin(ang2*(j+1)), Math.sin(ang1*i)*Math.sin(ang2*(j+1))
-			, Math.cos(ang2*(j+1)));
+		this.normals.push(-Math.sin(this.const_ang2), 
+						-Math.cos((j+1)*ang),
+						-Math.cos(this.const_ang2)*Math.sin((j+1)*ang)
+							);
 			
-		
-			this.normals.push(Math.cos(ang1*(i+1))*Math.sin(ang2*(j+1)), Math.sin(ang1*(i+1))*Math.sin(ang2*(j+1))
-			, Math.cos(ang2*(j+1)));	
-			
-
-		}
-
-		
-			
-		
 	}
 
  	this.primitiveType = this.scene.gl.TRIANGLES;
@@ -80,7 +96,7 @@
  };
 
 
- MyHemisphere.prototype.draw = function() {
+ MyDroneLegBack.prototype.draw = function() {
 	
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI,1,0,0);

@@ -134,8 +134,11 @@ LightingScene.prototype.init = function(application) {
 
 	this.drone= new MyDrone(this);
 
-	this.dls = new MyDroneLegSide1(this);
-	this.dls1 = new MyDroneLegSide2(this);
+	//angle of drone leg side 1 must always be less than dls2
+	this.dls1 = new MyDroneLegSide1(this,-2);
+	this.dls2 = new MyDroneLegSide2(this,2);
+	this.dlf = new MyDroneLegFront(this,-2,2);
+	this.dlb = new MyDroneLegBack(this,-2,2,0.95);
 
 };
 
@@ -343,9 +346,11 @@ LightingScene.prototype.display = function() {
 	//this.test.draw();
 	
 
-	this.dls.display();
 	this.dls1.display();
-	
+	this.dls2.display();
+	this.dlf.display();
+	this.dlb.display();
+
 	// ---- END Primitive drawing section
 	
 
