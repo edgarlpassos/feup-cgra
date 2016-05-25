@@ -51,7 +51,7 @@ MyInterface.prototype.init = function(application) {
 	// min and max values can be specified as parameters
 	
 	this.gui.add(this.scene, 'speed', -5, 5);
-
+	this.gui.add(this.scene, 'Texture',{geometric:0,camo:1});
 	return true;
 };
 
@@ -60,6 +60,69 @@ MyInterface.prototype.init = function(application) {
  * @param event {Event}
  */
 MyInterface.prototype.processKeyboard = function(event) {
+	// call CGFinterface default code (omit if you want to override)
+	CGFinterface.prototype.processKeyboard.call(this,event);
+	
+	// Check key codes e.g. here: http://www.asciitable.com/
+	// or use String.fromCharCode(event.keyCode) to compare chars
+	
+	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
+	/*switch (event.keyCode)
+	{
+		case (65):	// only works for capital 'A', as it is
+			this.scene.drone.moveLeft();
+			console.log("Key 'A' pressed");
+			break;
+		case (97):	//a
+			this.scene.drone.moveLeft();
+			console.log("Key 'A' pressed");
+			break;
+		case (68)://D
+			this.scene.drone.moveRight();
+			console.log("Key D pressed");
+			break;
+		case(100)://d
+			this.scene.drone.moveRight();
+			console.log("Key D pressed");
+			break;
+		case(119)://w
+			this.scene.drone.moveFront();
+			console.log("Key W pressed");
+			break;
+		case(87)://W
+			this.scene.drone.moveFront();
+			console.log("Key W pressed");
+			break;
+		case(83)://S
+			this.scene.drone.goBack();
+			console.log("Key S pressed");
+			break;
+		case(115): //s
+			this.scene.drone.goBack();
+			console.log("Key S pressed");
+			break;
+		case(105): //i
+			this.scene.drone.goUp();
+			console.log("Key S pressed");
+			break;
+		case(73): //I
+			this.scene.drone.goUp();
+			console.log("Key S pressed");
+			break;
+		case(74): //J
+			this.scene.drone.goDown();
+			console.log("Key S pressed");
+			break;
+		case(106): //j
+			this.scene.drone.goDown();
+			console.log("Key S pressed");
+			break;
+			
+
+	};*/
+};
+
+MyInterface.prototype.processKeyDown = function(event) {
 	// call CGFinterface default code (omit if you want to override)
 	CGFinterface.prototype.processKeyboard.call(this,event);
 	
@@ -115,6 +178,68 @@ MyInterface.prototype.processKeyboard = function(event) {
 			break;
 		case(106): //j
 			this.scene.drone.goDown();
+			console.log("Key S pressed");
+			break;
+
+	};
+};
+
+MyInterface.prototype.processKeyUp = function(event) {
+	// call CGFinterface default code (omit if you want to override)
+	CGFinterface.prototype.processKeyboard.call(this,event);
+	
+	// Check key codes e.g. here: http://www.asciitable.com/
+	// or use String.fromCharCode(event.keyCode) to compare chars
+	
+	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
+	switch (event.keyCode)
+	{
+		case (65):	// only works for capital 'A', as it is
+			this.scene.drone.stopMoveLeft();
+			console.log("Key 'A' pressed");
+			break;
+		case (97):	//a
+			this.scene.drone.stopMoveLeft();
+			console.log("Key 'A' pressed");
+			break;
+		case (68)://D
+			this.scene.drone.stopMoveRight();
+			console.log("Key D pressed");
+			break;
+		case(100)://d
+			this.scene.drone.stopMoveRight();
+			console.log("Key D pressed");
+			break;
+		case(119)://w
+			this.scene.drone.stopMoveFront();
+			console.log("Key W pressed");
+			break;
+		case(87)://W
+			this.scene.drone.stopMoveFront();
+			console.log("Key W pressed");
+			break;
+		case(83)://S
+			this.scene.drone.stopMoveBack();
+			console.log("Key S pressed");
+			break;
+		case(115): //s
+			this.scene.drone.stopMoveBack();
+			console.log("Key S pressed");
+			break;
+		case(105): //i
+			this.scene.drone.stopMoveUp();
+			console.log("Key S pressed");
+			break;
+		case(73): //I
+			this.scene.drone.stopMoveUp();
+			console.log("Key S pressed");
+			break;
+		case(74): //J
+			this.scene.drone.stopMoveDown();
+			console.log("Key S pressed");
+			break;
+		case(106): //j
+			this.scene.drone.stopMoveDown();
 			console.log("Key S pressed");
 			break;
 

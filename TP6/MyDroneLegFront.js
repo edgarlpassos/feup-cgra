@@ -8,7 +8,6 @@
 	this.const_ang1 = angle1 * Math.PI/180;
 	this.const_ang2 = angle2 * Math.PI/180;
 	
-	this.base = new MyCircle(this.scene,12);
  	this.initBuffers();
  };
 
@@ -96,10 +95,5 @@
 
 
  MyDroneLegFront.prototype.draw = function() {
-	
-	this.scene.pushMatrix();
-		this.scene.rotate(Math.PI,1,0,0);
-		this.base.display();
-	this.scene.popMatrix();
 	this.display();
  };

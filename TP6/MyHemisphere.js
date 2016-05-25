@@ -27,9 +27,11 @@
  	this.vertices = [];
  	this.normals = [];
  	this.indices = [];
+ 	this.textures = [];
 	
 	var ang1=(2*Math.PI)/this.slices;
 	var ang2=(Math.PI)/this.slices;
+	var ang3=(Math.PI/2)/this.slices;
 	var n_verts = 0;
 
 
@@ -66,8 +68,6 @@
 		
 			this.normals.push(Math.cos(ang1*(i+1))*Math.sin(ang2*(j+1)), Math.sin(ang1*(i+1))*Math.sin(ang2*(j+1))
 			, Math.cos(ang2*(j+1)));	
-			
-
 		}
 	}
 

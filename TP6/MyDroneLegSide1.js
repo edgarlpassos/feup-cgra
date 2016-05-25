@@ -6,8 +6,7 @@
  	CGFobject.call(this,scene);
 
  	this.const_ang = angle * Math.PI/180;
-	
-	this.base = new MyCircle(this.scene,12);
+
  	this.initBuffers();
  };
 
@@ -72,10 +71,5 @@
 
 
  MyDroneLegSide1.prototype.draw = function() {
-	
-	this.scene.pushMatrix();
-		this.scene.rotate(Math.PI,1,0,0);
-		this.base.display();
-	this.scene.popMatrix();
 	this.display();
  };
