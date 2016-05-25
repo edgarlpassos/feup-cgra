@@ -226,7 +226,7 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
-
+/*
 	// Floor
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -267,7 +267,7 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 	*/
 	
-
+/*
 	// First Table
 	this.pushMatrix();
 		this.translate(5, 0, 8);
@@ -322,7 +322,7 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 
 */
-
+/*
 	//Clock
 	this.pushMatrix();
 		this.translate(7.2,7.2,0);
@@ -369,10 +369,10 @@ LightingScene.prototype.display = function() {
 
 	//this.propeller.display();
 
-	/*this.rotate(this.drone.r_y,0,1,0);
+	*/this.rotate(this.drone.r_y,0,1,0);
 	this.rotate(this.drone.r_x,1,0,0);
 	this.rotate(this.drone.r_z,0,0,1);
-	this.drone.draw();*/
+	this.drone.draw();
 
 	//this.leg.draw();
 	//this.blade.draw();

@@ -246,33 +246,41 @@ MyDrone.prototype.draw = function() {
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.bottom.display();
 	this.scene.popMatrix();
+
+	/*this.scene.pushMatrix();
+	this.scene.rotate(Math.PI/2,0,1,0);*/
 			
 	//leg1
 	this.scene.pushMatrix();
-		this.scene.translate(0.7,-1.25,0);
+		this.scene.translate(0,-1.25,0.7);
+		this.scene.rotate(-Math.PI/2,0,1,0);
 		this.scene.rotate(-Math.PI/2,1,0,0);
 		this.leg1.draw();
 	this.scene.popMatrix();
 
 	//leg2
 	this.scene.pushMatrix();
-		this.scene.translate(-0.7,-1.25,0);
+		this.scene.translate(0,-1.25,-0.7);
+		this.scene.rotate(-Math.PI/2,0,1,0);
 		this.scene.rotate(-Math.PI/2,1,0,0);
 		this.leg2.draw();
 	this.scene.popMatrix();
 
 	//base1
 	this.scene.pushMatrix();
-		this.scene.translate(0,-1.25,0.95);
+		this.scene.translate(0.95,-1.25,0);
+		this.scene.rotate(-Math.PI/2,0,1,0);
 		this.scene.scale(2,0.15,0.15);
 		this.base1.display();
 	this.scene.popMatrix();
 
 	//base2
 	this.scene.pushMatrix();
-		this.scene.translate(0,-1.25,-0.95);
+		this.scene.translate(-0.95,-1.25,0);
+		this.scene.rotate(-Math.PI/2,0,1,0);
 		this.scene.scale(2,0.15,0.15);
 		this.base2.display();
+	//this.scene.popMatrix();
 	this.scene.popMatrix();
 
 	
