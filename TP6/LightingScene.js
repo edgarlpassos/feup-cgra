@@ -139,6 +139,8 @@ LightingScene.prototype.init = function(application) {
 	this.blade = new MyPropellerBlade(this);
 	this.leg = new MyDroneLeg(this);
 
+	this.chair = new MyChair(this);
+
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -254,6 +256,18 @@ LightingScene.prototype.display = function() {
 
 	this.materialDefault.apply();
 
+/*
+	//Chair
+	this.pushMatrix();
+		this.translate(4,0,6);
+		this.scale(0.7,1,0.8);
+		this.rotate(Math.PI,0,1,0);
+		this.chair.display();
+	this.popMatrix();
+	*/
+	
+
+
 	// First Table
 	this.pushMatrix();
 		this.translate(5, 0, 8);
@@ -343,8 +357,8 @@ LightingScene.prototype.display = function() {
 		this.rotate(this.drone.r_z,0,0,1);
 		this.drone.draw();
 	this.popMatrix();
-	
 
+	
 
 	//this.propeller.display();
 	//this.drone.draw();
@@ -359,7 +373,6 @@ LightingScene.prototype.display = function() {
 LightingScene.prototype.update = function(currTime){
 
 	this.drone.update();
-
 
 
 	if(this.ClockActive)

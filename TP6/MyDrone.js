@@ -91,15 +91,26 @@ function MyDrone(scene) {
 
 	this.geometric="../resources/images/geometric.jpg";
 	this.camo="../resources/images/camo.jpg";
+	this.GeometricPatternBase="../resources/images/metallic.jpg";
+	this.camoPatternBase="../resources/images/metallic.jpg";
 
 	//Drone geometric pattern
 	this.GeometricPattern = new CGFappearance(this.scene);
 	this.GeometricPattern.loadTexture(this.geometric);
 	
-	
 	//Drone camo pattern
 	this.camoPattern = new CGFappearance(this.scene);
 	this.camoPattern.loadTexture(this.camo);
+
+/*
+	//Drone geometric pattern (base)
+	this.GeometricPatternBase = new CGFappearance(this.scene);
+	this.GeometricPatternBase.loadTexture(this.geometric);
+	
+	//Drone camo pattern (base)
+	this.camoPatternBase = new CGFappearance(this.scene);
+	this.camoPatternBase.loadTexture(this.camo);
+*/
 	
 
 
@@ -113,6 +124,35 @@ MyDrone.prototype.constructor=MyDrone;
 
 MyDrone.prototype.draw = function() {
 	
+	//propeller 1
+	this.scene.pushMatrix();
+		this.scene.translate(0,0.4,2.8);
+		this.scene.rotate(30*Math.PI/180,0,1,0);
+		this.prop1.draw();
+	this.scene.popMatrix();
+
+	//propeller 2
+	this.scene.pushMatrix();
+		this.scene.translate(0,0.4,-2.8);
+		this.scene.rotate(20*Math.PI/180,0,1,0);
+		this.prop2.draw();
+	this.scene.popMatrix();
+
+	//propeller 3
+	this.scene.pushMatrix();
+		this.scene.translate(-2.8,0.4,0);
+		this.scene.rotate(50*Math.PI/180,0,1,0);
+		this.prop3.draw();
+	this.scene.popMatrix();
+
+	//propeller 4
+	this.scene.pushMatrix();
+		this.scene.translate(2.8,0.4,0);
+		this.prop4.draw();
+	this.scene.popMatrix();
+
+	
+	this.scene.pushMatrix();
 	if(this.scene.Texture==0)
 	 	this.GeometricPattern.apply();
 	 else if(this.scene.Texture==1)
@@ -122,6 +162,8 @@ MyDrone.prototype.draw = function() {
 		this.scene.rotate(Math.PI,0,1,1);
 		this.center.draw();
 	this.scene.popMatrix();
+	this.scene.popMatrix();
+
   	
 	//first arm
 	this.scene.pushMatrix();
@@ -192,33 +234,7 @@ MyDrone.prototype.draw = function() {
 		this.base.display();
 	this.scene.popMatrix();
 	
-	//propeller 1
-	this.scene.pushMatrix();
-		this.scene.translate(0,0.4,2.8);
-		this.scene.rotate(30*Math.PI/180,0,1,0);
-		this.prop1.draw();
-	this.scene.popMatrix();
-
-	//propeller 2
-	this.scene.pushMatrix();
-		this.scene.translate(0,0.4,-2.8);
-		this.scene.rotate(20*Math.PI/180,0,1,0);
-		this.prop2.draw();
-	this.scene.popMatrix();
-
-	//propeller 3
-	this.scene.pushMatrix();
-		this.scene.translate(-2.8,0.4,0);
-		this.scene.rotate(50*Math.PI/180,0,1,0);
-		this.prop3.draw();
-	this.scene.popMatrix();
-
-	//propeller 4
-	this.scene.pushMatrix();
-		this.scene.translate(2.8,0.4,0);
-		this.prop4.draw();
-	this.scene.popMatrix();
-
+	
 	//bottom of drone
 	this.scene.pushMatrix();
 		this.scene.translate(0,-0.25,0);
