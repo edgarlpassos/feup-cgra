@@ -62,9 +62,10 @@ function MyDrone(scene) {
   			BACK_FINAL_INCLI:4,};
 	
 	this.myStateInclination = StateInclinationEnum.WITHOUT_INCLI;
-	this.inclination=0;
+	this.xInclination=0;
+	this.zInclination=0;
 	this.maxInclination=0.5;
-	this.incAcceleration=0.05;
+	this.incStep=0.05;
 
 	this.angle = 0; //degrees
 
@@ -363,28 +364,28 @@ MyDrone.prototype.update = function(){
 	switch(this.myStateInclination){
 		case "FRONT_INCLI":
 
-		if(this.inclination<this.maxInclination)
-			this.inclination+=this.incAcceleration;
-		else this.inclination=this.maxInclination;
+		if(this.xInclination<this.maxInclination)
+			this.xInclination+=this.incStep;
+		else this.xInclination=this.maxInclination;
 		break;
 
 		case "FRONT_FINAL_INCLI":
 
-		if(this.inclination>0)
-			this.inclination-=this.incAcceleration;
-		else this.inclination=0;
+		if(this.xInclination>0)
+			this.xInclination-=this.incStep;
+		else this.xInclination=0;
 		break;
 
 		case "BACK_INCLI":
-		if(this.inclination>-this.maxInclination)
-			this.inclination-=this.incAcceleration;
-		else this.inclination=-this.maxInclination;
+		if(this.xInclination>-this.maxInclination)
+			this.xInclination-=this.incStep;
+		else this.xInclination=-this.maxInclination;
 		break;
 
 		case "BACK_FINAL_INCLI":
-		if(this.inclination<0)
-			this.inclination+=this.incAcceleration;
-		else this.inclination=0;
+		if(this.xInclination<0)
+			this.xInclination+=this.incStep;
+		else this.xInclination=0;
 		break;
 	}
 
@@ -446,8 +447,7 @@ MyDrone.prototype.update = function(){
 	
 	this.y+=1*this.heightVelocity;
 	this.r_y+=this.r_velocity;
-	//TODO!!!!!!!!!!
-	this.r_x=this.inclination;
+	this.r_x=this.xInclination;
 	this.z+=Math.cos(this.r_y)*this.velocity;
 	this.x+=Math.sin(this.r_y)*this.velocity;
 }

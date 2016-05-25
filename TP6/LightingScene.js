@@ -19,11 +19,9 @@ LightingScene.prototype.init = function(application) {
 	this.initCameras();
 
 	this.initLights();
-<<<<<<< HEAD
-=======
+
 	this.Texture=0;
 
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
 
 	this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 	this.gl.clearDepth(100.0);
@@ -117,11 +115,8 @@ LightingScene.prototype.init = function(application) {
 	this.marbleAppearance.setDiffuse(0.6,0.6,0.6,1);
 
 	//update time
-<<<<<<< HEAD
-	this.setUpdatePeriod(100);
-=======
+
 	this.setUpdatePeriod(20);
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
 
 	//paper plane
 	this.paperPlane = new MyPaperPlane(this);
@@ -139,17 +134,7 @@ LightingScene.prototype.init = function(application) {
 	this.RightCenterLight = true;
 	this.ClockActive = true;
 	this.speed = 3;
-<<<<<<< HEAD
 
-
-	this.drone= new MyDrone(this);
-
-	//angle of drone leg side 1 must always be less than dls2
-	this.dls1 = new MyDroneLegSide1(this,-2);
-	this.dls2 = new MyDroneLegSide2(this,2);
-	this.dlf = new MyDroneLegFront(this,-2,2);
-	this.dlb = new MyDroneLegBack(this,-2,2,0.95);
-=======
 	this.drone = new MyDrone(this);
 
 	//temporary for modelling
@@ -158,7 +143,6 @@ LightingScene.prototype.init = function(application) {
 	this.leg = new MyDroneLeg(this);
 
 	this.chair = new MyChair(this);
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
 
 };
 
@@ -242,13 +226,7 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
-
-<<<<<<< HEAD
-	/*
-=======
-
-
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
+/*
 	// Floor
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -278,9 +256,7 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 
 	this.materialDefault.apply();
-
-<<<<<<< HEAD
-=======
+*/
 /*
 	//Chair
 	this.pushMatrix();
@@ -289,11 +265,9 @@ LightingScene.prototype.display = function() {
 		this.rotate(Math.PI,0,1,0);
 		this.chair.display();
 	this.popMatrix();
-	*/
+	*//*
 	
 
-
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
 	// First Table
 	this.pushMatrix();
 		this.translate(5, 0, 8);
@@ -324,11 +298,8 @@ LightingScene.prototype.display = function() {
 		this.boardB.display();
 	this.popMatrix();
 
-<<<<<<< HEAD
-
-=======
+*/
 /*
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
 	//Prism acting as column
 	this.pushMatrix();
 		this.scale(1,0.4,1);
@@ -338,11 +309,9 @@ LightingScene.prototype.display = function() {
 		this.prism.display();
 	this.popMatrix();
 	
-<<<<<<< HEAD
-	//Cylinder acting as column
-=======
+
 /*	//Cylinder acting as column
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
+
 	this.pushMatrix();
 		this.scale(1,0.4,1);
 		this.translate(11,0,12);
@@ -351,11 +320,9 @@ LightingScene.prototype.display = function() {
 		//this.floorAppearance.apply();
 		this.cylinder.display();
 	this.popMatrix();
-<<<<<<< HEAD
 
-=======
-*/
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
+*//*
+
 	//Clock
 	this.pushMatrix();
 		this.translate(7.2,7.2,0);
@@ -388,38 +355,27 @@ LightingScene.prototype.display = function() {
 
 	//Drone
 	this.pushMatrix();
-<<<<<<< HEAD
-		this.translate(10, 4.5, 4);
-		this.scale(0.5,0.5,0.5);
-		this.drone.draw();
-	this.popMatrix();
 
-	*/
-	//this.drone.draw();
-	//this.test.draw();
-	
-
-	this.dls1.display();
-	this.dls2.display();
-	this.dlf.display();
-	this.dlb.display();
-
-=======
 		this.translate(this.drone.x,this.drone.y,this.drone.z);
 		this.scale(0.6,0.6,0.6);
-		this.rotate(this.drone.r_x,1,0,0);
 		this.rotate(this.drone.r_y,0,1,0);
+		this.rotate(this.drone.r_x,1,0,0);
 		this.rotate(this.drone.r_z,0,0,1);
 		this.drone.draw();
+
 	this.popMatrix();
 
 	
-
+*/
 	//this.propeller.display();
-	//this.drone.draw();
+
+	this.rotate(this.drone.r_y,0,1,0);
+	this.rotate(this.drone.r_x,1,0,0);
+	this.rotate(this.drone.r_z,0,0,1);
+	this.drone.draw();
+	
 	//this.leg.draw();
 	//this.blade.draw();
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
 	// ---- END Primitive drawing section
 	
 
@@ -428,12 +384,9 @@ LightingScene.prototype.display = function() {
 
 LightingScene.prototype.update = function(currTime){
 
-<<<<<<< HEAD
-=======
 	this.drone.update();
 
 
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
 	if(this.ClockActive)
 		this.clock.update(currTime);
 
@@ -463,16 +416,9 @@ LightingScene.prototype.update = function(currTime){
 		
 
 	this.paperPlane.update();
-<<<<<<< HEAD
-
-=======
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
 };
 
 LightingScene.prototype.doSomething = function(){
 	console.log("Doing Something...");
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> e31139b10df0fb2e8c52d2d92b6967e56232bca4
+
