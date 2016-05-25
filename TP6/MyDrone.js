@@ -46,7 +46,8 @@ function MyDrone(scene) {
   			UP: 1,
   			UP_FINAL: 2,
   			DOWN: 3,
-  			DOWN_FINAL:4,};
+  			DOWN_FINAL:4
+  			};
   	
   	var myStateHeigth = StateHeightEnum.WITHOUT_MOV;
 
@@ -59,7 +60,9 @@ function MyDrone(scene) {
   			FRONT_INCLI: 1,
   			FRONT_FINAL_INCLI: 2,
   			BACK_INCLI: 3,
-  			BACK_FINAL_INCLI:4,};
+  			BACK_FINAL_INCLI:4
+  			};
+
 	
 	this.myStateInclination = StateInclinationEnum.WITHOUT_INCLI;
 	this.xInclination=0;
@@ -79,10 +82,10 @@ function MyDrone(scene) {
 	this.hand2 = new MyCylinderWithTop(this.scene,12,12);
 	this.hand3 = new MyCylinderWithTop(this.scene,12,12);
 	this.hand4 = new MyCylinderWithTop(this.scene,12,12);
-	this.prop1 = new MyPropellerBlade(this.scene);
-	this.prop2 = new MyPropellerBlade(this.scene);
-	this.prop3 = new MyPropellerBlade(this.scene);
-	this.prop4 = new MyPropellerBlade(this.scene);
+	this.frontProp = new MyPropeller(this.scene,-1);
+	this.backProp = new MyPropeller(this.scene,-1);
+	this.rightProp = new MyPropeller(this.scene,1);
+	this.leftProp = new MyPropeller(this.scene,1);
 	this.bottom = new MyCircle(this.scene,12);
 	this.leg1 = new MyDroneLeg(this.scene);
 	this.leg2 = new MyDroneLeg(this.scene);
@@ -127,28 +130,29 @@ MyDrone.prototype.draw = function() {
 	//propeller 1
 	this.scene.pushMatrix();
 		this.scene.translate(0,0.4,2.8);
-		this.scene.rotate(30*Math.PI/180,0,1,0);
-		this.prop1.draw();
+		this.scene.rotate(this.frontProp.angle,0,1,0);
+		this.frontProp.draw();
 	this.scene.popMatrix();
 
 	//propeller 2
 	this.scene.pushMatrix();
 		this.scene.translate(0,0.4,-2.8);
-		this.scene.rotate(20*Math.PI/180,0,1,0);
-		this.prop2.draw();
+		this.scene.rotate(this.backProp.angle,0,1,0);
+		this.backProp.draw();
 	this.scene.popMatrix();
 
 	//propeller 3
 	this.scene.pushMatrix();
 		this.scene.translate(-2.8,0.4,0);
-		this.scene.rotate(50*Math.PI/180,0,1,0);
-		this.prop3.draw();
+		this.scene.rotate(this.rightProp.angle,0,1,0);
+		this.rightProp.draw();
 	this.scene.popMatrix();
 
 	//propeller 4
 	this.scene.pushMatrix();
 		this.scene.translate(2.8,0.4,0);
-		this.prop4.draw();
+		this.scene.rotate(this.leftProp.angle,0,1,0);
+		this.leftProp.draw();
 	this.scene.popMatrix();
 
 	
@@ -275,63 +279,177 @@ MyDrone.prototype.draw = function() {
 
 };
 
+var propellerSpeed = {
+  		SLOW: 0,
+  		NORMAL: 1,
+  		FAST: 2,
+  	}
+
 
 MyDrone.prototype.moveLeft = function(){
 	this.myStateRotacion="LEFT";
+
+	if(this.myStateMoving != "BACK")
+		this.frontProp.setSpeed(propellerSpeed.SLOW);
+
+	if(this.myStateMoving != "FRONT")
+		this.backProp.setSpeed(propellerSpeed.SLOW);
+
+	this.leftProp.setSpeed(propellerSpeed.FAST);
+	this.rightProp.setSpeed(propellerSpeed.FAST);
 }
 
 MyDrone.prototype.stopMoveLeft = function(){
 	this.myStateRotacion="LEFT_FINAL";
 
+	if(this.myStateMoving != "BACK")
+		this.frontProp.setSpeed(propellerSpeed.NORMAL);
+
+	if(this.myStateMoving != "FRONT")
+		this.backProp.setSpeed(propellerSpeed.NORMAL);
+
+	this.leftProp.setSpeed(propellerSpeed.NORMAL);
+	this.rightProp.setSpeed(propellerSpeed.NORMAL);
 }
 
 MyDrone.prototype.moveRight = function(){
 	this.myStateRotacion="RIGHT";
+
+	if(this.myStateMoving != "BACK")
+		this.frontProp.setSpeed(propellerSpeed.SLOW);
+
+	if(this.myStateMoving != "FRONT")
+		this.backProp.setSpeed(propellerSpeed.SLOW);
+
+	this.leftProp.setSpeed(propellerSpeed.FAST);
+	this.rightProp.setSpeed(propellerSpeed.FAST);
 }
 
 MyDrone.prototype.stopMoveRight = function(){
 	this.myStateRotacion="RIGHT_FINAL";
+
+	if(this.myStateMoving != "BACK")
+		this.frontProp.setSpeed(propellerSpeed.NORMAL);
+
+	if(this.myStateMoving != "FRONT")
+		this.backProp.setSpeed(propellerSpeed.NORMAL);
+
+	this.leftProp.setSpeed(propellerSpeed.NORMAL);
+	this.rightProp.setSpeed(propellerSpeed.NORMAL);
 }
 
 MyDrone.prototype.moveFront = function(){
 	this.myStateMoving="FRONT";
-	this.myStateInclination="FRONT_INCLI"
+	this.myStateInclination="FRONT_INCLI";
+
+	this.frontProp.setSpeed(propellerSpeed.SLOW);
+	this.backProp.setSpeed(propellerSpeed.FAST);
+
+	if(this.myStateRotacion !="RIGHT" && this.myStateRotacion != "LEFT"){
+	this.leftProp.setSpeed(propellerSpeed.NORMAL);
+	this.rightProp.setSpeed(propellerSpeed.NORMAL);
+	}
 
 }
 
 MyDrone.prototype.stopMoveFront = function(){
 	this.myStateMoving="FRONT_FINAL";
 	this.myStateInclination = "FRONT_FINAL_INCLI"
+
+	this.frontProp.setSpeed(propellerSpeed.NORMAL);
+	this.backProp.setSpeed(propellerSpeed.NORMAL);
+
+	if(this.myStateRotacion !="RIGHT" && this.myStateRotacion != "LEFT"){
+		this.leftProp.setSpeed(propellerSpeed.NORMAL);
+		this.rightProp.setSpeed(propellerSpeed.NORMAL);
+	}
 }
 
 MyDrone.prototype.goBack = function(){
 	this.myStateMoving="BACK";
-	this.myStateInclination="BACK_INCLI"
+	this.myStateInclination="BACK_INCLI";
+
+	this.frontProp.setSpeed(propellerSpeed.FAST);
+	this.backProp.setSpeed(propellerSpeed.SLOW);
+
+	if(this.myStateRotacion !="RIGHT" && this.myStateRotacion != "LEFT"){
+		this.leftProp.setSpeed(propellerSpeed.NORMAL);
+		this.rightProp.setSpeed(propellerSpeed.NORMAL);
+	}
 }
 MyDrone.prototype.stopMoveBack = function(){
 	this.myStateMoving="BACK_FINAL";
-	this.myStateInclination = "BACK_FINAL_INCLI"
+	this.myStateInclination = "BACK_FINAL_INCLI";
+
+	this.frontProp.setSpeed(propellerSpeed.NORMAL);
+	this.backProp.setSpeed(propellerSpeed.NORMAL);
+
+	if(this.myStateRotacion !="RIGHT" && this.myStateRotacion != "LEFT"){
+		this.leftProp.setSpeed(propellerSpeed.NORMAL);
+		this.rightProp.setSpeed(propellerSpeed.NORMAL);
+	}
 }
 
 MyDrone.prototype.goUp = function(){
-	this.myStateHeigth="UP"
+	this.myStateHeigth="UP";
+	
+	this.frontProp.setSpeed(propellerSpeed.FAST);
+	this.backProp.setSpeed(propellerSpeed.FAST);
+	this.leftProp.setSpeed(propellerSpeed.FAST);
+	this.rightProp.setSpeed(propellerSpeed.FAST);
 }
 
 MyDrone.prototype.stopMoveUp = function(){
-	this.myStateHeigth="UP_FINAL"
+	this.myStateHeigth="UP_FINAL";
+	
+	if(this.myStateMoving != "BACK")
+		this.frontProp.setSpeed(propellerSpeed.NORMAL);
+
+	if(this.myStateMoving != "FRONT")
+		this.backProp.setSpeed(propellerSpeed.NORMAL);
+
+	if(this.myStateRotacion !="RIGHT" && this.myStateRotacion != "LEFT"){
+		this.leftProp.setSpeed(propellerSpeed.NORMAL);
+		this.rightProp.setSpeed(propellerSpeed.NORMAL);
+	}
 }
 
 MyDrone.prototype.goDown = function(){
-	this.myStateHeigth="DOWN"
+	this.myStateHeigth="DOWN";
+
+	if(this.myStateMoving != "BACK")
+		this.frontProp.setSpeed(propellerSpeed.SLOW);
+
+	if(this.myStateMoving != "FRONT")
+		this.backProp.setSpeed(propellerSpeed.SLOW);
+
+	if(this.myStateRotacion !="RIGHT" && this.myStateRotacion != "LEFT"){
+		this.leftProp.setSpeed(propellerSpeed.SLOW);
+		this.rightProp.setSpeed(propellerSpeed.SLOW);
+	}
 }
 
 MyDrone.prototype.stopMoveDown = function(){
-	this.myStateHeigth="DOWN_FINAL"
+	this.myStateHeigth="DOWN_FINAL";
+
+	if(this.myStateMoving != "BACK")
+		this.frontProp.setSpeed(propellerSpeed.NORMAL);
+
+	if(this.myStateMoving != "FRONT")
+		this.backProp.setSpeed(propellerSpeed.NORMAL);
+
+	if(this.myStateRotacion !="RIGHT" && this.myStateRotacion != "LEFT"){
+		this.leftProp.setSpeed(propellerSpeed.NORMAL);
+		this.rightProp.setSpeed(propellerSpeed.NORMAL);
+	}
 }
 
 MyDrone.prototype.update = function(){
 
-	
+	this.frontProp.update();
+	this.backProp.update();
+	this.leftProp.update();
+	this.rightProp.update();
 
 	switch(this.myStateMoving){
 		case "FRONT":

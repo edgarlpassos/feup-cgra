@@ -115,8 +115,8 @@ LightingScene.prototype.init = function(application) {
 	this.marbleAppearance.setDiffuse(0.6,0.6,0.6,1);
 
 	//update time
-
-	this.setUpdatePeriod(20);
+	this.updateRate = 20;
+	this.setUpdatePeriod(this.updateRate);
 
 	//paper plane
 	this.paperPlane = new MyPaperPlane(this);
@@ -226,7 +226,7 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
-/*
+
 	// Floor
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -256,7 +256,7 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 
 	this.materialDefault.apply();
-*/
+
 /*
 	//Chair
 	this.pushMatrix();
@@ -265,7 +265,7 @@ LightingScene.prototype.display = function() {
 		this.rotate(Math.PI,0,1,0);
 		this.chair.display();
 	this.popMatrix();
-	*//*
+	*/
 	
 
 	// First Table
@@ -298,7 +298,7 @@ LightingScene.prototype.display = function() {
 		this.boardB.display();
 	this.popMatrix();
 
-*/
+
 /*
 	//Prism acting as column
 	this.pushMatrix();
@@ -321,7 +321,7 @@ LightingScene.prototype.display = function() {
 		this.cylinder.display();
 	this.popMatrix();
 
-*//*
+*/
 
 	//Clock
 	this.pushMatrix();
@@ -366,14 +366,14 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 
 	
-*/
+
 	//this.propeller.display();
 
-	this.rotate(this.drone.r_y,0,1,0);
+	/*this.rotate(this.drone.r_y,0,1,0);
 	this.rotate(this.drone.r_x,1,0,0);
 	this.rotate(this.drone.r_z,0,0,1);
-	this.drone.draw();
-	
+	this.drone.draw();*/
+
 	//this.leg.draw();
 	//this.blade.draw();
 	// ---- END Primitive drawing section
