@@ -89,6 +89,20 @@ function MyDrone(scene) {
 	this.base2 = new MyUnitCubeQuad(this.scene);
 
 
+	this.geometric="../resources/images/geometric.jpg";
+	this.camo="../resources/images/camo.jpg";
+
+	//Drone geometric pattern
+	this.GeometricPattern = new CGFappearance(this.scene);
+	this.GeometricPattern.loadTexture(this.geometric);
+	
+	
+	//Drone camo pattern
+	this.camoPattern = new CGFappearance(this.scene);
+	this.camoPattern.loadTexture(this.camo);
+	
+
+
 	this.initBuffers();
 };
 
@@ -98,6 +112,11 @@ MyDrone.prototype.constructor=MyDrone;
 
 
 MyDrone.prototype.draw = function() {
+	
+	if(this.scene.Texture==0)
+	 	this.GeometricPattern.apply();
+	 else if(this.scene.Texture==1)
+	 	this.camoPattern.apply();
 
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI,0,1,1);
@@ -237,7 +256,6 @@ MyDrone.prototype.draw = function() {
 
 	
 
-    
 };
 
 
@@ -410,14 +428,7 @@ MyDrone.prototype.update = function(){
 	}
 
 	
-	
-
-	
 	this.y+=1*this.heightVelocity;
-	
-	
-
-
 	this.r_y+=this.r_velocity;
 	//TODO!!!!!!!!!!
 	this.r_x=this.inclination;

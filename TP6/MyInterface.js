@@ -51,7 +51,7 @@ MyInterface.prototype.init = function(application) {
 	// min and max values can be specified as parameters
 	
 	this.gui.add(this.scene, 'speed', -5, 5);
-
+	this.gui.add(this.scene, 'Texture',{geometric:0,camo:1});
 	return true;
 };
 

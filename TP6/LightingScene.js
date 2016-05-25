@@ -19,6 +19,8 @@ LightingScene.prototype.init = function(application) {
 	this.initCameras();
 
 	this.initLights();
+	this.Texture=0;
+
 
 	this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 	this.gl.clearDepth(100.0);
@@ -335,7 +337,7 @@ LightingScene.prototype.display = function() {
 	//Drone
 	this.pushMatrix();
 		this.translate(this.drone.x,this.drone.y,this.drone.z);
-		this.scale(0.5,0.5,0.5);
+		this.scale(0.6,0.6,0.6);
 		this.rotate(this.drone.r_x,1,0,0);
 		this.rotate(this.drone.r_y,0,1,0);
 		this.rotate(this.drone.r_z,0,0,1);
@@ -357,7 +359,9 @@ LightingScene.prototype.display = function() {
 LightingScene.prototype.update = function(currTime){
 
 	this.drone.update();
-	
+
+
+
 	if(this.ClockActive)
 		this.clock.update(currTime);
 
