@@ -27,7 +27,7 @@
  	this.vertices = [];
  	this.normals = [];
  	this.indices = [];
- 	//this.texCoords = [];
+ 	this.texCoords = [];
 	
 	var ang1=(2*Math.PI)/this.slices;
 	var ang2=(Math.PI)/this.slices;
@@ -78,7 +78,11 @@
 
 
 
-
+			//texCoords
+			this.texCoords.push(0.5*Math.cos(ang1*i)*Math.sin(ang2*j) + 0.5, 0.5 - 0.5*Math.sin(ang1*i)*Math.sin(ang2*j));
+			this.texCoords.push(0.5*Math.cos(ang1*(i+1))*Math.sin(ang2*j) + 0.5, 0.5 - 0.5*Math.sin(ang1*(i+1))*Math.sin(ang2*j));
+			this.texCoords.push(0.5*Math.cos(ang1*i)*Math.sin(ang2*(j+1)) + 0.5, 0.5 - 0.5*Math.sin(ang1*i)*Math.sin(ang2*(j+1)));
+			this.texCoords.push(0.5*Math.cos(ang1*(i+1))*Math.sin(ang2*(j+1))+0.5 ,0.5 - 0.5*Math.sin(ang1*(i+1))*Math.sin(ang2*(j+1)));
 			
 
 		}
@@ -92,9 +96,9 @@
 
  MyHemisphere.prototype.draw = function() {
 	
-	this.scene.pushMatrix();
+	/*this.scene.pushMatrix();
 		this.scene.rotate(Math.PI,1,0,0);
 		this.base.display();
-	this.scene.popMatrix();
+	this.scene.popMatrix();*/
 	this.display();
  };

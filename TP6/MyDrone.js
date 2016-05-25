@@ -94,13 +94,16 @@ function MyDrone(scene) {
 
 
 	this.geometric="../resources/images/geometric.jpg";
+	this.hemi_geometric="../resources/images/Hemisphere_geometric.png";
 	this.camo="../resources/images/camo.jpg";
 	this.GeometricPatternBase="../resources/images/metallic.jpg";
 	this.camoPatternBase="../resources/images/metallic.jpg";
 
 	//Drone geometric pattern
 	this.GeometricPattern = new CGFappearance(this.scene);
+	this.GeometricPatternHemi = new CGFappearance(this.scene);
 	this.GeometricPattern.loadTexture(this.geometric);
+	this.GeometricPatternHemi.loadTexture(this.hemi_geometric);
 	
 	//Drone camo pattern
 	this.camoPattern = new CGFappearance(this.scene);
@@ -126,6 +129,16 @@ MyDrone.prototype.constructor=MyDrone;
 
 
 MyDrone.prototype.draw = function() {
+
+	var activePattern;
+	
+	if(this.scene.Texture==0){
+	 	activePattern = this.GeometricPattern;
+	 	activeHemiPattern = this.GeometricPatternHemi;
+	}
+
+	 else if(this.scene.Texture==1)
+	 	activePattern = this.camoPattern;
 	
 	//propeller 1
 	this.scene.pushMatrix();
@@ -156,20 +169,18 @@ MyDrone.prototype.draw = function() {
 	this.scene.popMatrix();
 
 	
-	this.scene.pushMatrix();
-	if(this.scene.Texture==0)
-	 	this.GeometricPattern.apply();
-	 else if(this.scene.Texture==1)
-	 	this.camoPattern.apply();
+	
 
-	this.scene.pushMatrix();
-		this.scene.rotate(Math.PI,0,1,1);
-		this.center.draw();
-	this.scene.popMatrix();
-	this.scene.popMatrix();
+
+
 
   	
 	//first arm
+	this.scene.pushMatrix();
+
+	activePattern.apply();
+//	activeHemiPattern.apply();
+
 	this.scene.pushMatrix();
 		this.scene.scale(0.25,0.2,0.4);
 		this.arm1.display();
@@ -232,14 +243,6 @@ MyDrone.prototype.draw = function() {
 		this.hand4.draw();
 	this.scene.popMatrix();
 
-	//base
-	this.scene.pushMatrix();
-		this.scene.rotate(Math.PI/2,1,0,0);
-		this.scene.scale(1,1,0.05);
-		this.base.display();
-	this.scene.popMatrix();
-	
-	
 	//bottom of drone
 	this.scene.pushMatrix();
 		this.scene.translate(0,-0.25,0);
@@ -282,6 +285,29 @@ MyDrone.prototype.draw = function() {
 		this.base2.display();
 	//this.scene.popMatrix();
 	this.scene.popMatrix();
+
+
+
+	this.scene.pushMatrix();
+		activePattern.apply();
+		this.scene.rotate(Math.PI/2,1,0,0);
+		this.scene.scale(1,1,0.05);
+		this.base.display();
+	this.scene.popMatrix();
+	
+
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+		activeHemiPattern.apply();
+		this.scene.pushMatrix();
+		this.scene.rotate(Math.PI,0,1,1);
+		this.center.draw();
+	this.scene.popMatrix();
+	
+	
+	
+	
 
 	
 
