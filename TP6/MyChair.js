@@ -18,6 +18,8 @@ MyChair.prototype.constructor=MyChair;
 
 MyChair.prototype.display=function(){
 	
+	this.scene.translate(0,2,0);
+	
 	this.scene.translate(0,0.7,1.3);
 	this.scene.rotate(Math.PI/2,0,1,0);
 	this.scene.scale(1.4,1.7,1.3);

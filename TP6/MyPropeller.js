@@ -2,6 +2,7 @@
  * MyObject
  * @param gl {WebGLRenderingContext}
  * @constructor
+ * @arg direction clockwise or counterclockwise
  */
 function MyPropeller(scene,direction) {
 	CGFobject.call(this,scene);
@@ -23,10 +24,9 @@ function MyPropeller(scene,direction) {
 	this.y = 0;
 	this.z = 0;
 
-	this.angle = 0; //degrees
 
-	this.prop1 = new MyPropellerBlade(this.scene);
-	this.prop2 = new MyPropellerBlade(this.scene);
+	this.prop1 = new MyCylinderWithTop(this.scene,12,1);
+	this.prop2 = new MyCylinderWithTop(this.scene,12,1);
 	this.center = new MyHemisphere(this.scene,12,1);
 
 	this.initBuffers();
@@ -39,18 +39,18 @@ MyPropeller.prototype.constructor=MyPropeller;
 
 MyPropeller.prototype.draw = function() {	
 
-
 	this.scene.pushMatrix();
-		this.scene.translate(0,0.05,0.4);
+		this.scene.translate(0,0.05,0.7);
 		this.scene.rotate(Math.PI/2,1,0,0);
-		this.prop1.display();
+		this.scene.scale(0.1,0.8,0.01);
+		this.prop1.draw();
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix();
-		this.scene.translate(0,0.05,-0.35);
-		this.scene.rotate(Math.PI,0,1,0);
+		this.scene.translate(0,0.05,-0.7);
 		this.scene.rotate(Math.PI/2,1,0,0);
-		this.prop2.display();
+		this.scene.scale(0.1,0.8,0.01);
+		this.prop2.draw();
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix();
@@ -59,6 +59,8 @@ MyPropeller.prototype.draw = function() {
 		this.scene.scale(0.2,0.2,0.15);
 		this.center.display();
 	this.scene.popMatrix();
+
+	
 };
 
 MyPropeller.prototype.setSpeed = function(speed){

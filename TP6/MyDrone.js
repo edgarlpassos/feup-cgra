@@ -6,6 +6,40 @@
 function MyDrone(scene) {
 	CGFobject.call(this,scene);
 
+
+	this.center=new MyHemisphere(this.scene,12,1);
+	this.base = new MyCylinder(this.scene,12,7);
+
+	this.backArm = new MyCylinder(this.scene,12,7);
+	this.rightArm = new MyCylinder(this.scene,12,7);
+	this.frontArm = new MyCylinder(this.scene,12,7);
+	this.leftArm = new MyCylinder(this.scene,12,7);
+
+	this.backHand = new MyCylinderWithTop(this.scene,12,12);
+	this.rightHand = new MyCylinderWithTop(this.scene,12,12);
+	this.frontHand = new MyCylinderWithTop(this.scene,12,12);
+	this.leftHand = new MyCylinderWithTop(this.scene,12,12);
+
+	this.frontProp = new MyPropeller(this.scene,-1);
+	this.backProp = new MyPropeller(this.scene,-1);
+	this.rightProp = new MyPropeller(this.scene,1);
+	this.leftProp = new MyPropeller(this.scene,1);
+
+	this.bottom = new MyCircle(this.scene,12);
+
+	this.backLeg = new MyDroneLeg(this.scene);
+	this.frontLeg = new MyDroneLeg(this.scene);
+
+	this.rightBase = new MyUnitCubeQuad(this.scene);
+	this.leftBase = new MyUnitCubeQuad(this.scene);
+
+
+	//metal appearance used for propellers and legs
+	this.metalAppearance = new CGFappearance(this.scene);
+	this.metalAppearance.setShininess(300);
+	this.metalAppearance.setSpecular(0.9,0.9,0.9,1);
+	this.metalAppearance.setDiffuse(0.1,0.1,0.1,1);
+
 	//Front and Back Movement
 	var StateMovEnum = {
 			WITHOUT_MOV:0,
@@ -72,53 +106,10 @@ function MyDrone(scene) {
 
 	this.angle = 0; //degrees
 
-	this.center=new MyHemisphere(this.scene,12,1);
-	this.base = new MyCylinder(this.scene,12,7);
-	this.arm1 = new MyCylinder(this.scene,12,7);
-	this.arm2 = new MyCylinder(this.scene,12,7);
-	this.arm3 = new MyCylinder(this.scene,12,7);
-	this.arm4 = new MyCylinder(this.scene,12,7);
-	this.hand1 = new MyCylinderWithTop(this.scene,12,12);
-	this.hand2 = new MyCylinderWithTop(this.scene,12,12);
-	this.hand3 = new MyCylinderWithTop(this.scene,12,12);
-	this.hand4 = new MyCylinderWithTop(this.scene,12,12);
-	this.frontProp = new MyPropeller(this.scene,-1);
-	this.backProp = new MyPropeller(this.scene,-1);
-	this.rightProp = new MyPropeller(this.scene,1);
-	this.leftProp = new MyPropeller(this.scene,1);
-	this.bottom = new MyCircle(this.scene,12);
-	this.leg1 = new MyDroneLeg(this.scene);
-	this.leg2 = new MyDroneLeg(this.scene);
-	this.base1 = new MyUnitCubeQuad(this.scene);
-	this.base2 = new MyUnitCubeQuad(this.scene);
 
 
-	this.geometric="../resources/images/geometric.jpg";
-	this.hemi_geometric="../resources/images/Hemisphere_geometric.png";
-	this.camo="../resources/images/camo.jpg";
-	this.GeometricPatternBase="../resources/images/metallic.jpg";
-	this.camoPatternBase="../resources/images/metallic.jpg";
 
-	//Drone geometric pattern
-	this.GeometricPattern = new CGFappearance(this.scene);
-	this.GeometricPatternHemi = new CGFappearance(this.scene);
-	this.GeometricPattern.loadTexture(this.geometric);
-	this.GeometricPatternHemi.loadTexture(this.hemi_geometric);
-	
-	//Drone camo pattern
-	this.camoPattern = new CGFappearance(this.scene);
-	this.camoPattern.loadTexture(this.camo);
 
-/*
-	//Drone geometric pattern (base)
-	this.GeometricPatternBase = new CGFappearance(this.scene);
-	this.GeometricPatternBase.loadTexture(this.geometric);
-	
-	//Drone camo pattern (base)
-	this.camoPatternBase = new CGFappearance(this.scene);
-	this.camoPatternBase.loadTexture(this.camo);
-*/
-	
 
 	this.initBuffers();
 };
@@ -127,120 +118,142 @@ function MyDrone(scene) {
 MyDrone.prototype = Object.create(CGFobject.prototype);
 MyDrone.prototype.constructor=MyDrone;
 
-
 MyDrone.prototype.draw = function() {
-
-	var activePattern;
 	
-	if(this.scene.Texture==0){
-	 	activePattern = this.GeometricPattern;
-	 	activeHemiPattern = this.GeometricPatternHemi;
-	}
+	 
+	//put the drone in an upright position
+	this.scene.rotate(Math.PI,0,1,0);
 
-	 else if(this.scene.Texture==1)
-	 	activePattern = this.camoPattern;
-	
-	//propeller 1
 	this.scene.pushMatrix();
-		this.scene.translate(0,0.4,2.8);
+
+	//front propeller
+	this.metalAppearance.apply();
+	this.scene.pushMatrix();
+		this.scene.translate(0,0.4,-2.8);
 		this.scene.rotate(this.frontProp.angle,0,1,0);
 		this.frontProp.draw();
 	this.scene.popMatrix();
 
-	//propeller 2
+	//back propeller
 	this.scene.pushMatrix();
-		this.scene.translate(0,0.4,-2.8);
+		this.scene.translate(0,0.4,2.8);
 		this.scene.rotate(this.backProp.angle,0,1,0);
 		this.backProp.draw();
 	this.scene.popMatrix();
 
-	//propeller 3
+	//right propeller
 	this.scene.pushMatrix();
 		this.scene.translate(-2.8,0.4,0);
 		this.scene.rotate(this.rightProp.angle,0,1,0);
 		this.rightProp.draw();
 	this.scene.popMatrix();
 
-	//propeller 4
+	//left propeller
 	this.scene.pushMatrix();
 		this.scene.translate(2.8,0.4,0);
 		this.scene.rotate(this.leftProp.angle,0,1,0);
 		this.leftProp.draw();
 	this.scene.popMatrix();
 
-	
-	
-
-
-
-
-  	
-	//first arm
+		//back Leg
 	this.scene.pushMatrix();
-
-	activePattern.apply();
-//	activeHemiPattern.apply();
-
-	this.scene.pushMatrix();
-		this.scene.scale(0.25,0.2,0.4);
-		this.arm1.display();
+		this.scene.translate(0,-1.25,0.7);
+		this.scene.rotate(-Math.PI/2,0,1,0);
+		this.scene.rotate(-Math.PI/2,1,0,0);
+		this.backLeg.draw();
 	this.scene.popMatrix();
 
-	//end of the first arm
+	//front Leg
+	this.scene.pushMatrix();
+		this.scene.translate(0,-1.25,-0.7);
+		this.scene.rotate(-Math.PI/2,0,1,0);
+		this.scene.rotate(-Math.PI/2,1,0,0);
+		this.frontLeg.draw();
+	this.scene.popMatrix();
+
+	//right Base
+	this.scene.pushMatrix();
+		this.scene.translate(0.95,-1.25,0);
+		this.scene.rotate(-Math.PI/2,0,1,0);
+		this.scene.scale(2,0.15,0.15);
+		this.rightBase.display();
+	this.scene.popMatrix();
+
+	//left Base
+	this.scene.pushMatrix();
+		this.scene.translate(-0.95,-1.25,0);
+		this.scene.rotate(-Math.PI/2,0,1,0);
+		this.scene.scale(2,0.15,0.15);
+		this.leftBase.display();
+	this.scene.popMatrix();
+
+
+
+	this.scene.pushMatrix();
+	this.scene.activeAppearance.apply();
+
+
+	//back arm
+	this.scene.pushMatrix();
+		this.scene.scale(0.25,0.2,0.4);
+		this.backArm.display();
+	this.scene.popMatrix();
+
 	this.scene.pushMatrix();
 		this.scene.translate(0,0.4,2.8);
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(0.27,0.27,0.05);
-		this.hand1.draw();
+		this.backHand.draw();
 	this.scene.popMatrix();
 
-	//second arm
+
+	//right arm
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.scale(0.25,0.2,0.4);
-		this.arm2.display();
+		this.rightArm.display();
 	this.scene.popMatrix();
 
-	//end of the second arm
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.translate(0,0.4,2.8);
 		this.scene.rotate(Math.PI/2,1,0,0);
-		this.scene.scale(0.27,0.27,0.05);
-		this.hand2.draw();
+		this.scene.scale(0.2,0.27,0.05);
+		this.rightHand.draw();
 	this.scene.popMatrix();
 
-	//third arm
+
+	//front arm
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI,1,0,0);
 		this.scene.scale(0.25,0.2,0.4);
-		this.arm3.display();
+		this.frontArm.display();
 	this.scene.popMatrix();
 
-	//end of the third arm
 	this.scene.pushMatrix();
 		this.scene.rotate(Math.PI,0,1,0);
 		this.scene.translate(0,0.4,2.8);
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(0.27,0.27,0.05);
-		this.hand3.draw();
+		this.frontHand.draw();
 	this.scene.popMatrix();
 
-	//fourth arm
+
+	//left arm
 	this.scene.pushMatrix();
 		this.scene.rotate(-Math.PI/2,0,1,0);
 		this.scene.scale(0.25,0.2,0.4);
-		this.arm4.display();
+		this.leftArm.display();
 	this.scene.popMatrix();
 
-	//end of the fourth arm
 	this.scene.pushMatrix();
 		this.scene.rotate(-Math.PI/2,0,1,0);
 		this.scene.translate(0,0.4,2.8);
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(0.27,0.27,0.05);
-		this.hand4.draw();
+		this.leftHand.draw();
 	this.scene.popMatrix();
+	
 
 	//bottom of drone
 	this.scene.pushMatrix();
@@ -249,46 +262,9 @@ MyDrone.prototype.draw = function() {
 		this.bottom.display();
 	this.scene.popMatrix();
 
-	/*this.scene.pushMatrix();
-	this.scene.rotate(Math.PI/2,0,1,0);*/
-			
-	//leg1
+
+	//cylinder on bottom of drone
 	this.scene.pushMatrix();
-		this.scene.translate(0,-1.25,0.7);
-		this.scene.rotate(-Math.PI/2,0,1,0);
-		this.scene.rotate(-Math.PI/2,1,0,0);
-		this.leg1.draw();
-	this.scene.popMatrix();
-
-	//leg2
-	this.scene.pushMatrix();
-		this.scene.translate(0,-1.25,-0.7);
-		this.scene.rotate(-Math.PI/2,0,1,0);
-		this.scene.rotate(-Math.PI/2,1,0,0);
-		this.leg2.draw();
-	this.scene.popMatrix();
-
-	//base1
-	this.scene.pushMatrix();
-		this.scene.translate(0.95,-1.25,0);
-		this.scene.rotate(-Math.PI/2,0,1,0);
-		this.scene.scale(2,0.15,0.15);
-		this.base1.display();
-	this.scene.popMatrix();
-
-	//base2
-	this.scene.pushMatrix();
-		this.scene.translate(-0.95,-1.25,0);
-		this.scene.rotate(-Math.PI/2,0,1,0);
-		this.scene.scale(2,0.15,0.15);
-		this.base2.display();
-	//this.scene.popMatrix();
-	this.scene.popMatrix();
-
-
-
-	this.scene.pushMatrix();
-		activePattern.apply();
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(1,1,0.05);
 		this.base.display();
@@ -297,20 +273,19 @@ MyDrone.prototype.draw = function() {
 
 	this.scene.popMatrix();
 
+	//Center of the drone
 	this.scene.pushMatrix();
-		activeHemiPattern.apply();
+		this.scene.activeHemiAppearance.apply();
 		this.scene.pushMatrix();
 		this.scene.rotate(Math.PI,0,1,1);
 		this.center.draw();
 	this.scene.popMatrix();
 	
-	
-	
-	
+	this.scene.popMatrix();
 
-	
+}
 
-};
+
 
 var propellerSpeed = {
   		SLOW: 0,
@@ -576,7 +551,6 @@ MyDrone.prototype.update = function(){
 		break;
 
 		case "UP_FINAL":
-
 		if(this.heightVelocity>0)
 			this.heightVelocity-=this.acceleration;
 		else this.heightVelocity=0;
@@ -601,4 +575,5 @@ MyDrone.prototype.update = function(){
 	this.r_x=this.xInclination;
 	this.z+=Math.cos(this.r_y)*this.velocity;
 	this.x+=Math.sin(this.r_y)*this.velocity;
+
 }

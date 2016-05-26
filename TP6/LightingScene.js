@@ -20,8 +20,6 @@ LightingScene.prototype.init = function(application) {
 
 	this.initLights();
 
-	this.Texture=0;
-
 
 	this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 	this.gl.clearDepth(100.0);
@@ -56,16 +54,15 @@ LightingScene.prototype.init = function(application) {
 	this.materialB.setShininess(120);
 
 	this.materialC = new CGFappearance(this);
-    //this.materialC.setAmbient(0.3,0.3,0.3,1);
-	this.materialC.setDiffuse(0,0.498,1,1);
-	//this.materialC.setSpecular(0.8,0.8,0.8,1);	
+	this.materialC.setDiffuse(0,0.498,1,1);	
 	this.materialC.setShininess(120);
 
 	this.materialD = new CGFappearance(this);
-    //this.materialD.setAmbient(0.3,0.3,0.3,1);
 	this.materialD.setDiffuse(0.753,0.753,0.753,1);
-	//this.materialD.setSpecular(0.8,0.8,0.8,1);	
 	this.materialD.setShininess(120);
+
+	this.chairAppearance = new CGFappearance(this);
+	this.chairAppearance.loadTexture("../resources/images/floor.png");
 
 
 	//floor texture
@@ -80,7 +77,7 @@ LightingScene.prototype.init = function(application) {
 	this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE','CLAMP_TO_EDGE');
 
 	
-
+	//Columns
 	this.prism=new MyPrism(this,8,20);
 	this.cylinder = new MyCylinder(this,8,20);
 
@@ -139,10 +136,51 @@ LightingScene.prototype.init = function(application) {
 
 	//temporary for modelling
 	this.propeller = new MyPropeller(this);
-	this.blade = new MyPropellerBlade(this);
 	this.leg = new MyDroneLeg(this);
 
 	this.chair = new MyChair(this);
+
+	//array to hold the appearances
+	//as some appearances have a special corresponding pattern for the center hemisphere
+	//the array will hold both appearances at the 2n and 2n+1 positions, n being their position in the drop down menu in the gui
+	//e.g. the feup pattern for the arms and base is at index 2*2=4 and the hemisphere pattern at index 2*2+1=5
+	this.droneAppearances = [];
+
+	//Drone Appearances
+	this.geometric="../resources/images/geometric.jpg";
+	this.hemi_geometric="../resources/images/Hemisphere_geometric.png";
+	this.camo="../resources/images/camo.jpg";
+	this.grey="../resources/images/grey.jpg";
+	this.face="../resources/images/feup2.png";
+
+	//Drone geometric pattern
+	this.GeometricPattern = new CGFappearance(this);
+	this.GeometricPatternHemi = new CGFappearance(this);
+	this.GeometricPattern.loadTexture(this.geometric);
+	this.GeometricPatternHemi.loadTexture(this.hemi_geometric);
+	this.droneAppearances.push(this.GeometricPattern,this.GeometricPatternHemi);
+
+	//Drone camo pattern
+	this.camoPattern = new CGFappearance(this);
+	this.camoPattern.loadTexture(this.camo);
+	this.droneAppearances.push(this.camoPattern,this.camoPattern); //no special pattern for the center here
+
+	//FEUP pattern
+	this.feupPattern = new CGFappearance(this);
+	this.feupPattern.loadTexture(this.grey)
+	this.feupHemiPattern = new CGFappearance(this);
+	this.feupHemiPattern.loadTexture(this.face);
+	this.droneAppearances.push(this.feupPattern,this.feupHemiPattern);
+
+	//Variable that loads the current Drone texture
+	//0-Geometric
+	//1-Camo
+	//2-Feup
+	this.currDroneAppearance = 0;
+
+	this.activeAppearance = this.droneAppearances[2*this.currDroneAppearance];
+	this.activeHemiAppearance = this.droneAppearances[1 + 2*this.currDroneAppearance];
+
 
 };
 
@@ -226,7 +264,7 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
-/*
+
 	// Floor
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -257,17 +295,15 @@ LightingScene.prototype.display = function() {
 
 	this.materialDefault.apply();
 
-/*
+
 	//Chair
 	this.pushMatrix();
-		this.translate(4,0,6);
-		this.scale(0.7,1,0.8);
-		this.rotate(Math.PI,0,1,0);
+		this.translate(5,0,10);
+		this.scale(0.7,0.8,0.8);
+		this.chairAppearance.apply();
 		this.chair.display();
 	this.popMatrix();
-	*/
-	
-/*
+
 	// First Table
 	this.pushMatrix();
 		this.translate(5, 0, 8);
@@ -285,7 +321,6 @@ LightingScene.prototype.display = function() {
 		this.translate(4, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 		this.slidesAppearance.apply();
-		//this.materialA.apply();
 		this.boardA.display();
 	this.popMatrix();
 
@@ -294,7 +329,6 @@ LightingScene.prototype.display = function() {
 		this.translate(10.5, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 		this.boardAppearance.apply();
-		//this.materialB.apply();
 		this.boardB.display();
 	this.popMatrix();
 
@@ -322,7 +356,7 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 
 */
-/*
+
 	//Clock
 	this.pushMatrix();
 		this.translate(7.2,7.2,0);
@@ -351,7 +385,7 @@ LightingScene.prototype.display = function() {
 
 		this.planeAppearance.apply();
 		this.paperPlane.display();
-	this.popMatrix();
+		this.popMatrix();
 
 	//Drone
 	this.pushMatrix();
@@ -365,27 +399,24 @@ LightingScene.prototype.display = function() {
 
 	this.popMatrix();
 
+
 	
-
-	//this.propeller.display();
-
-	*/this.rotate(this.drone.r_y,0,1,0);
+	/*this.rotate(this.drone.r_y,0,1,0);
 	this.rotate(this.drone.r_x,1,0,0);
 	this.rotate(this.drone.r_z,0,0,1);
-	this.drone.draw();
+	this.drone.draw();*/
 
-	//this.leg.draw();
-	//this.blade.draw();
+
 	// ---- END Primitive drawing section
 	
 
 
 };
 
+/**
+ * update function used to animate the scene
+ */
 LightingScene.prototype.update = function(currTime){
-
-	this.drone.update();
-
 
 	if(this.ClockActive)
 		this.clock.update(currTime);
@@ -416,7 +447,15 @@ LightingScene.prototype.update = function(currTime){
 		
 
 	this.paperPlane.update();
+
+	
+	//Drone
+	this.activeAppearance = this.droneAppearances[2*this.currDroneAppearance];
+	this.activeHemiAppearance = this.droneAppearances[1 + 2*this.currDroneAppearance];
+	this.drone.update();
+	
 };
+
 
 LightingScene.prototype.doSomething = function(){
 	console.log("Doing Something...");

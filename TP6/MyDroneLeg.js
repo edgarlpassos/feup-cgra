@@ -8,7 +8,7 @@
 	this.front = new MyDroneLegFront(this.scene,-2,2);
 	this.side1 = new MyDroneLegSide1(this.scene,-2);
 	this.side2 = new MyDroneLegSide2(this.scene,2);
-	this.back = new MyDroneLegBack(this.scene);
+	this.back = new MyDroneLegBack(this.scene,-2,2,0.96);
 
  	this.initBuffers();
  };
@@ -18,10 +18,10 @@
 
  MyDroneLeg.prototype.draw = function() {
  	this.scene.pushMatrix();
- 		this.front.draw();
- 		this.side1.draw();
- 		this.side2.draw();
- 		this.back.draw();
+ 		this.front.display();
+ 		this.side1.display();
+ 		this.side2.display();
+ 		this.back.display();
  	this.scene.popMatrix();
  };
 

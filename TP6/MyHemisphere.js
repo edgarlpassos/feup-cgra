@@ -16,22 +16,14 @@
  MyHemisphere.prototype.constructor = MyHemisphere;
 
  MyHemisphere.prototype.initBuffers = function() {
- 	/*
- 	* TODO:
- 	* Replace the following lines in order to build a prism with a **single mesh**.
- 	*
- 	* How can the vertices, indices and normals arrays be defined to
- 	* build a prism with varying number of slices and stacks?
- 	*/
 
  	this.vertices = [];
  	this.normals = [];
  	this.indices = [];
  	this.texCoords = [];
 	
-	var ang1=(2*Math.PI)/this.slices;
-	var ang2=(Math.PI)/this.slices;
-	var ang3=(Math.PI/2)/this.slices;
+	var ang1=(2*Math.PI)/this.slices; // 0-360 deg
+	var ang2=(Math.PI)/this.slices; // 0-180 deg
 	var n_verts = 0;
 
 

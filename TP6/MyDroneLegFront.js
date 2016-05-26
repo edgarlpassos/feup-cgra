@@ -1,6 +1,7 @@
 /**
  * MyDroneLegFront
  * @constructor
+ * @arg angle1,angle2 are the angles of the edges of the curve, angle1 < angle2
  */
  function MyDroneLegFront(scene, angle1, angle2) {
  	CGFobject.call(this,scene);
@@ -15,13 +16,6 @@
  MyDroneLegFront.prototype.constructor = MyDroneLegFront;
 
  MyDroneLegFront.prototype.initBuffers = function() {
- 	/*
- 	* TODO:
- 	* Replace the following lines in order to build a prism with a **single mesh**.
- 	*
- 	* How can the vertices, indices and normals arrays be defined to
- 	* build a prism with varying number of slices and stacks?
- 	*/
 
  	this.vertices = [];
  	this.normals = [];
@@ -94,6 +88,3 @@
  };
 
 
- MyDroneLegFront.prototype.draw = function() {
-	this.display();
- };
