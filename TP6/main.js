@@ -27,6 +27,7 @@ serialInclude([
 	'MyDroneLegFront.js',
 	'MyDroneLeg.js',
 	'MyChair.js',
+	'MyCable.js',
 
 
 	main=function() {

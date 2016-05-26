@@ -33,6 +33,8 @@ function MyDrone(scene) {
 	this.rightBase = new MyUnitCubeQuad(this.scene);
 	this.leftBase = new MyUnitCubeQuad(this.scene);
 
+	this.cable = new MyCable(this.scene);
+
 
 	//metal appearance used for propellers and legs
 	this.metalAppearance = new CGFappearance(this.scene);
@@ -125,6 +127,8 @@ MyDrone.prototype.draw = function() {
 	this.scene.rotate(Math.PI,0,1,0);
 
 	this.scene.pushMatrix();
+
+	this.cable.draw();
 
 	//front propeller
 	this.metalAppearance.apply();

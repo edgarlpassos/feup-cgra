@@ -140,6 +140,8 @@ LightingScene.prototype.init = function(application) {
 
 	this.chair = new MyChair(this);
 
+	this.cable = new MyCable(this);
+
 	//array to hold the appearances
 	//as some appearances have a special corresponding pattern for the center hemisphere
 	//the array will hold both appearances at the 2n and 2n+1 positions, n being their position in the drop down menu in the gui
@@ -409,7 +411,9 @@ LightingScene.prototype.display = function() {
 
 	// ---- END Primitive drawing section
 	
+	//this.cable.draw();
 
+	//this.drone.draw();
 
 };
 
