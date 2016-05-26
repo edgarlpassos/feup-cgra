@@ -2,11 +2,11 @@
  * MyDroneLegSide1
  * @constructor
  */
- function MyDroneLegSide1(scene,angle) {
+ function MyDroneLegSide1(scene,angle, int_rad) {
  	CGFobject.call(this,scene);
 
  	this.const_ang = angle * Math.PI/180;
-
+	this.int_rad = int_rad;
  	this.initBuffers();
  };
 
@@ -20,7 +20,6 @@
  	this.normals = [];
  	this.indices = [];
 
- 	var int_rad = 0.95;
 	
 	var ang1=(2*Math.PI)/12;
 	var ang2=(Math.PI)/12;
@@ -37,8 +36,8 @@
 		n_verts++;
 
 		this.vertices.push(Math.sin(this.const_ang), 
-							int_rad * Math.cos(j*ang2),
-							int_rad * Math.cos(this.const_ang)*Math.sin(j*ang2)
+							this.int_rad * Math.cos(j*ang2),
+							this.int_rad * Math.cos(this.const_ang)*Math.sin(j*ang2)
 							);
 
 		n_verts++;
@@ -51,8 +50,8 @@
 		n_verts++;
 
 		this.vertices.push(Math.sin(this.const_ang), 
-							int_rad * Math.cos((j+1)*ang2),
-							int_rad * Math.cos(this.const_ang)*Math.sin((j+1)*ang2)
+							this.int_rad * Math.cos((j+1)*ang2),
+							this.int_rad * Math.cos(this.const_ang)*Math.sin((j+1)*ang2)
 							);
 
 		n_verts++;

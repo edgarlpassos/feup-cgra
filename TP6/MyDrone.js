@@ -27,8 +27,8 @@ function MyDrone(scene) {
 
 	this.bottom = new MyCircle(this.scene,12);
 
-	this.backLeg = new MyDroneLeg(this.scene);
-	this.frontLeg = new MyDroneLeg(this.scene);
+	this.backLeg = new MyDroneLeg(this.scene,0.05);
+	this.frontLeg = new MyDroneLeg(this.scene,0.05);
 
 	this.rightBase = new MyUnitCubeQuad(this.scene);
 	this.leftBase = new MyUnitCubeQuad(this.scene);
