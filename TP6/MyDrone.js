@@ -206,7 +206,6 @@ MyDrone.prototype.draw = function() {
 		this.scene.rotate(Math.PI/2,0,1,0);
 		this.scene.translate(0,0.4,2.8);
 		this.scene.rotate(Math.PI/2,1,0,0);
-		this.scene.scale(0.2,0.27,0.05);
 		this.scene.scale(0.27,0.27,0.05);
 		this.hand2.draw();
 	this.scene.popMatrix();
