@@ -84,6 +84,9 @@ LightingScene.prototype.init = function(application) {
 	//clock
 	this.clock = new MyClock(this,12,1);
 
+	//weight
+	this.box = new MyBox(this);
+
 	this.enableTextures(true);
 
 
@@ -172,6 +175,10 @@ LightingScene.prototype.init = function(application) {
 	this.feupHemiPattern.loadTexture(this.face);
 	this.droneAppearances.push(this.feupPattern,this.feupHemiPattern);
 
+	//Box pattern
+	this.boxPattern = new CGFappearance(this);
+	this.boxPattern.loadTexture("../resources/images/box.png");
+	
 	//Variable that loads the current Drone texture
 	//0-Geometric
 	//1-Camo
@@ -264,6 +271,13 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
+
+	
+	//Weight
+	this.pushMatrix();
+		this.boxPattern.apply();
+		this.box.draw();
+	this.popMatrix();
 
 	// Floor
 	this.pushMatrix();
@@ -399,7 +413,7 @@ LightingScene.prototype.display = function() {
 
 	this.popMatrix();
 
-
+	
 	
 	/*this.rotate(this.drone.r_y,0,1,0);
 	this.rotate(this.drone.r_x,1,0,0);
@@ -411,6 +425,8 @@ LightingScene.prototype.display = function() {
 	
 
 	//this.drone.draw();
+
+
 
 };
 
