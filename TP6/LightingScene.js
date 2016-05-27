@@ -483,8 +483,8 @@ LightingScene.prototype.update = function(currTime){
 
 
 	//Coordenate y of the End of the hook
-	this.EndHook = this.drone.y - this.drone.hook.heigth+0.5;
-	//console.log(this.EndHook);
+	this.EndHook = this.drone.y - this.drone.hook.height;
+	console.log(this.EndHook);
 
 	//Drone is at the same position of the box
 	

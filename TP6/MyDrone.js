@@ -591,6 +591,6 @@ MyDrone.prototype.releaseHook = function(){
 
 
 MyDrone.prototype.pullHook = function(){
-	if(this.hook.heigth>0)
+	if(this.hook.height>0)
 		this.hook.pullHook();	
 }
