@@ -37,7 +37,7 @@ function MyDrone(scene) {
 	this.cable = new MyCable(this.scene);
 
 
-	//metal appearance used for propellers and legs
+	//metal appearance used for propellers, legs and cable
 	this.metalAppearance = new CGFappearance(this.scene);
 	this.metalAppearance.setShininess(300);
 	this.metalAppearance.setSpecular(0.9,0.9,0.9,1);
@@ -128,10 +128,7 @@ MyDrone.prototype.draw = function() {
 	this.scene.rotate(Math.PI,0,1,0);
 
 	this.scene.pushMatrix();
-	
-	this.scene.pushMatrix();
-		this.cable.draw();
-	this.scene.popMatrix();
+
 	
 
 	//front propeller
@@ -195,8 +192,8 @@ MyDrone.prototype.draw = function() {
 		this.leftBase.display();
 	this.scene.popMatrix();
 
-
-
+	this.cable.draw();
+	
 	this.scene.pushMatrix();
 	this.scene.activeAppearance.apply();
 

@@ -266,7 +266,7 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
-/*
+
 	// Floor
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -358,7 +358,7 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 
 */
-/*
+
 	//Clock
 	this.pushMatrix();
 		this.translate(7.2,7.2,0);
@@ -412,7 +412,7 @@ LightingScene.prototype.display = function() {
 	// ---- END Primitive drawing section
 	
 
-	this.drone.draw();
+	//this.drone.draw();
 
 };
 
