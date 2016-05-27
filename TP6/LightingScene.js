@@ -181,6 +181,9 @@ LightingScene.prototype.init = function(application) {
 	this.activeAppearance = this.droneAppearances[2*this.currDroneAppearance];
 	this.activeHemiAppearance = this.droneAppearances[1 + 2*this.currDroneAppearance];
 
+	//propeller speed scale
+	this.speed = 1;
+
 
 };
 
@@ -452,7 +455,7 @@ LightingScene.prototype.update = function(currTime){
 	//Drone
 	this.activeAppearance = this.droneAppearances[2*this.currDroneAppearance];
 	this.activeHemiAppearance = this.droneAppearances[1 + 2*this.currDroneAppearance];
-	this.drone.update();
+	this.drone.update(this.speed);
 	
 };
 

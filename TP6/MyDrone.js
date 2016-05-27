@@ -452,12 +452,12 @@ MyDrone.prototype.stopMoveDown = function(){
 	}
 }
 
-MyDrone.prototype.update = function(){
+MyDrone.prototype.update = function(propellerScale){
 
-	this.frontProp.update();
-	this.backProp.update();
-	this.leftProp.update();
-	this.rightProp.update();
+	this.frontProp.update(propellerScale);
+	this.backProp.update(propellerScale);
+	this.leftProp.update(propellerScale);
+	this.rightProp.update(propellerScale);
 
 	switch(this.myStateMoving){
 		case "FRONT":
