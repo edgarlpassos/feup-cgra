@@ -7,6 +7,7 @@ function MyHook(scene) {
 	CGFobject.call(this,scene);
 
 	this.heigth=0;
+	
 	this.stacks=1;
 	this.Hook= new MyCylinder(scene, 3, this.stacks);
 	this.hookEnd = new MyDroneLeg(this.scene,0.3);
