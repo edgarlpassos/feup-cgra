@@ -142,6 +142,7 @@ LightingScene.prototype.init = function(application) {
 	this.leg = new MyDroneLeg(this);
 
 	this.chair = new MyChair(this);
+	this.hook = new MyHook(this);
 
 	//array to hold the appearances
 	//as some appearances have a special corresponding pattern for the center hemisphere
@@ -272,7 +273,7 @@ LightingScene.prototype.display = function() {
 
 	// ---- BEGIN Primitive drawing section
 
-	
+/*	
 	//Weight
 	this.pushMatrix();
 		this.boxPattern.apply();
@@ -371,7 +372,7 @@ LightingScene.prototype.display = function() {
 
 */
 
-	//Clock
+/*	//Clock
 	this.pushMatrix();
 		this.translate(7.2,7.2,0);
 		this.scale(.5,.5,0.1);
@@ -424,7 +425,8 @@ LightingScene.prototype.display = function() {
 	// ---- END Primitive drawing section
 	
 
-	//this.drone.draw();
+	this.drone.draw();
+	//this.hook.draw();
 
 
 
@@ -465,12 +467,40 @@ LightingScene.prototype.update = function(currTime){
 
 	this.paperPlane.update();
 
-	
 	//Drone
 	this.activeAppearance = this.droneAppearances[2*this.currDroneAppearance];
 	this.activeHemiAppearance = this.droneAppearances[1 + 2*this.currDroneAppearance];
 	this.drone.update();
+/*	
+	console.log(this.box.x);
+	console.log(">");
+	console.log(this.drone.x-1);
+
+	console.log(this.box.x);
+	console.log("<");
+	console.log(this.drone.x+1);
+	*/	
+
+
+	//Coordenate y of the End of the hook
+	this.EndHook = this.drone.y - this.drone.hook.heigth+0.5;
+	//console.log(this.EndHook);
+
+	//Drone is at the same position of the box
 	
+	if( this.box.x > (this.drone.x-0.5)  && this.box.x < (this.drone.x+0.5)){
+		if(this.EndHook < this.box.y)
+			{
+				console.log("ENTREI");
+			}
+	
+	}
+
+	//console.log(this.drone.y);
+	//console.log(this.drone.hook.heigth);
+	
+	
+
 };
 
 

@@ -5,6 +5,11 @@
  */
 function MyDrone(scene) {
 	CGFobject.call(this,scene);
+
+	//Flag that tells if the Drone is at the same position of the box
+	//0 means not the same position, 1 mean same position
+	this.BoxFlag=0;
+	
 	
 	this.center=new MyHemisphere(this.scene,12,1);
 	this.base = new MyCylinder(this.scene,12,7);
@@ -107,8 +112,6 @@ function MyDrone(scene) {
 	this.incStep=0.05;
 
 	this.angle = 0; //degrees
-
-
 
 
 
@@ -588,6 +591,6 @@ MyDrone.prototype.releaseHook = function(){
 
 
 MyDrone.prototype.pullHook = function(){
-	if(this.hook.stacks>1)
+	//if(this.hook.height>0.2)
 		this.hook.pullHook();	
 }
