@@ -120,6 +120,22 @@ MyInterface.prototype.processKeyDown = function(event) {
 			this.scene.drone.goDown();
 			console.log("Key S pressed");
 			break;
+		case(80): //P
+			this.scene.drone.pullCable();
+			console.log("Key P pressed");
+			break;
+		case(112): //p
+			this.scene.drone.pullCable();
+			console.log("Key p pressed");
+			break;
+		case(76): //L
+			this.scene.drone.releaseCable();
+			console.log("Key L pressed");
+			break;
+		case(108): //l
+			this.scene.drone.releaseCable();
+			console.log("Key l pressed");
+			break;
 
 	};
 };
@@ -185,4 +201,3 @@ MyInterface.prototype.processKeyUp = function(event) {
 
 	};
 };
-

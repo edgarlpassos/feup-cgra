@@ -5,7 +5,7 @@
  */
 function MyDrone(scene) {
 	CGFobject.call(this,scene);
-
+	
 
 	this.center=new MyHemisphere(this.scene,12,1);
 	this.base = new MyCylinder(this.scene,12,7);
@@ -32,6 +32,7 @@ function MyDrone(scene) {
 
 	this.rightBase = new MyUnitCubeQuad(this.scene);
 	this.leftBase = new MyUnitCubeQuad(this.scene);
+
 
 	this.cable = new MyCable(this.scene);
 
@@ -127,8 +128,11 @@ MyDrone.prototype.draw = function() {
 	this.scene.rotate(Math.PI,0,1,0);
 
 	this.scene.pushMatrix();
-
-	this.cable.draw();
+	
+	this.scene.pushMatrix();
+		this.cable.draw();
+	this.scene.popMatrix();
+	
 
 	//front propeller
 	this.metalAppearance.apply();
@@ -580,4 +584,14 @@ MyDrone.prototype.update = function(){
 	this.z+=Math.cos(this.r_y)*this.velocity;
 	this.x+=Math.sin(this.r_y)*this.velocity;
 
+}
+
+MyDrone.prototype.releaseCable = function(){
+	this.cable.releaseCable();
+}
+
+
+MyDrone.prototype.pullCable = function(){
+	if(this.cable.stacks>1)
+		this.cable.pullCable();	
 }
