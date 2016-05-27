@@ -3,21 +3,21 @@
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
-function MyCable(scene) {
+function MyHook(scene) {
 	CGFobject.call(this,scene);
 
 	this.stacks=1;
-	this.cable= new MyCylinder(scene, 3, this.stacks);
-	this.hook = new MyDroneLeg(this.scene,0.3);
+	this.Hook= new MyCylinder(scene, 3, this.stacks);
+	this.hookEnd = new MyDroneLeg(this.scene,0.3);
 
 	this.initBuffers();
 };
 
 
-MyCable.prototype = Object.create(CGFobject.prototype);
-MyCable.prototype.constructor=MyCable;
+MyHook.prototype = Object.create(CGFobject.prototype);
+MyHook.prototype.constructor=MyHook;
 
-MyCable.prototype.draw = function() {
+MyHook.prototype.draw = function() {
 	
 	this.scene.pushMatrix();
 	this.scene.rotate(Math.PI,0,1,0);
@@ -25,13 +25,13 @@ MyCable.prototype.draw = function() {
 	
 	this.scene.pushMatrix();
 		this.scene.scale(0.1,0.1,this.stacks/5);
-		this.cable.display();
+		this.Hook.display();
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix();
 		this.scene.translate(0,0.26,this.stacks/5-0.2);
 		this.scene.scale(1.7,0.3,0.5);
-		this.hook.draw();
+		this.hookEnd.draw();
 	this.scene.popMatrix();
 	this.scene.popMatrix();
 
@@ -39,11 +39,11 @@ MyCable.prototype.draw = function() {
 
 
 
-MyCable.prototype.releaseCable = function(){
+MyHook.prototype.releaseHook = function(){
 	this.stacks+=0.5;
 }
 
-MyCable.prototype.pullCable = function(){
+MyHook.prototype.pullHook = function(){
 
 	this.stacks-= 0.5;
 	

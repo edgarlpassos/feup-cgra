@@ -6,7 +6,6 @@
 function MyDrone(scene) {
 	CGFobject.call(this,scene);
 	
-
 	this.center=new MyHemisphere(this.scene,12,1);
 	this.base = new MyCylinder(this.scene,12,7);
 
@@ -34,7 +33,7 @@ function MyDrone(scene) {
 	this.leftBase = new MyUnitCubeQuad(this.scene);
 
 
-	this.cable = new MyCable(this.scene);
+	this.hook = new MyHook(this.scene);
 
 
 	//metal appearance used for propellers, legs and cable
@@ -192,7 +191,7 @@ MyDrone.prototype.draw = function() {
 		this.leftBase.display();
 	this.scene.popMatrix();
 
-	this.cable.draw();
+	this.hook.draw();
 	
 	this.scene.pushMatrix();
 	this.scene.activeAppearance.apply();
@@ -583,12 +582,12 @@ MyDrone.prototype.update = function(){
 
 }
 
-MyDrone.prototype.releaseCable = function(){
-	this.cable.releaseCable();
+MyDrone.prototype.releaseHook = function(){
+	this.hook.releaseHook();
 }
 
 
-MyDrone.prototype.pullCable = function(){
-	if(this.cable.stacks>1)
-		this.cable.pullCable();	
+MyDrone.prototype.pullHook = function(){
+	if(this.hook.stacks>1)
+		this.hook.pullHook();	
 }

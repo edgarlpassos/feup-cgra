@@ -121,19 +121,19 @@ MyInterface.prototype.processKeyDown = function(event) {
 			console.log("Key S pressed");
 			break;
 		case(80): //P
-			this.scene.drone.pullCable();
+			this.scene.drone.pullHook();
 			console.log("Key P pressed");
 			break;
 		case(112): //p
-			this.scene.drone.pullCable();
+			this.scene.drone.pullHook();
 			console.log("Key p pressed");
 			break;
 		case(76): //L
-			this.scene.drone.releaseCable();
+			this.scene.drone.releaseHook();
 			console.log("Key L pressed");
 			break;
 		case(108): //l
-			this.scene.drone.releaseCable();
+			this.scene.drone.releaseHook();
 			console.log("Key l pressed");
 			break;
 
