@@ -44,7 +44,7 @@ MyHook.prototype.draw = function() {
 MyHook.prototype.releaseHook = function(){
 	console.log("Release");
 	this.heigth+=0.2;
-	console.log(this.heigth);
+	//console.log(this.heigth);
 
 
 }
@@ -52,7 +52,7 @@ MyHook.prototype.releaseHook = function(){
 MyHook.prototype.pullHook = function(){
 	console.log("Pull");
 	this.heigth-=0.2;
-	console.log(this.heigth);
+	//console.log(this.heigth);
 	
 	
 }

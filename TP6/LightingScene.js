@@ -273,7 +273,7 @@ LightingScene.prototype.display = function() {
 
 	// ---- BEGIN Primitive drawing section
 
-/*	
+	
 	//Weight
 	this.pushMatrix();
 		this.boxPattern.apply();
@@ -372,7 +372,7 @@ LightingScene.prototype.display = function() {
 
 */
 
-/*	//Clock
+	//Clock
 	this.pushMatrix();
 		this.translate(7.2,7.2,0);
 		this.scale(.5,.5,0.1);
@@ -425,7 +425,7 @@ LightingScene.prototype.display = function() {
 	// ---- END Primitive drawing section
 	
 
-	this.drone.draw();
+	//this.drone.draw();
 	//this.hook.draw();
 
 
