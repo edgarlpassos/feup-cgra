@@ -143,6 +143,7 @@ LightingScene.prototype.init = function(application) {
 
 	this.chair = new MyChair(this);
 	this.hook = new MyHook(this);
+	this.destiny = new MyBoxDestiny(this);
 
 	//array to hold the appearances
 	//as some appearances have a special corresponding pattern for the center hemisphere
@@ -179,6 +180,10 @@ LightingScene.prototype.init = function(application) {
 	//Box pattern
 	this.boxPattern = new CGFappearance(this);
 	this.boxPattern.loadTexture("../resources/images/box.png");
+
+	//BoxDestiny pattern
+	this.boxDestinyPattern = new CGFappearance(this);
+	this.boxDestinyPattern.loadTexture("../resources/images/boxD.png");
 
 	
 	//Variable that loads the current Drone texture
@@ -286,6 +291,12 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.boxPattern.apply();
 		this.box.draw();
+	this.popMatrix();
+
+	//Destiny
+	this.pushMatrix();
+		this.boxDestinyPattern.apply();
+		this.destiny.draw();
 	this.popMatrix();
 
 	// Floor

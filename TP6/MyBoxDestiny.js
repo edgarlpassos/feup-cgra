@@ -6,9 +6,9 @@
 function MyBoxDestiny(scene) {
 	CGFobject.call(this,scene);
 	
-	this.x=3;
-	this.y=0.7;
-	this.z=3;
+	this.x=11;
+	this.y=0.2;
+	this.z=11;
 
 	this.box = new MyUnitCubeQuad(this.scene);
 
