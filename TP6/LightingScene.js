@@ -510,10 +510,12 @@ LightingScene.prototype.update = function(currTime){
 
 
 	if(this.myStateBoxHook=="FOUND"){
+		
 		this.box.x=this.drone.x;
 		this.box.z=this.drone.z;
 		this.box.y=this.EndHook;
 	}
+
 	
 
 	//console.log(this.drone.y);
