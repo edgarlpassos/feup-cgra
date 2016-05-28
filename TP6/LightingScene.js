@@ -420,8 +420,6 @@ LightingScene.prototype.display = function() {
 		this.drone.draw();
 
 	this.popMatrix();
-
-	
 	
 	/*this.rotate(this.drone.r_y,0,1,0);
 	this.rotate(this.drone.r_x,1,0,0);

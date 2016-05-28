@@ -197,6 +197,7 @@ MyDrone.prototype.draw = function() {
 	//Hoook
 	this.scene.pushMatrix();
 		this.scene.translate(0,-0.25,0);
+		this.scene.rotate(this.r_x,1,0,0);
 		this.hook.draw();
 	this.scene.popMatrix();
 	
