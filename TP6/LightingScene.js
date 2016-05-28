@@ -504,12 +504,18 @@ LightingScene.prototype.update = function(currTime){
 				if(this.myStateBoxHook!="FOUND"){
 					this.boxPattern.loadTexture("../resources/images/boxHook.png");
 				}
-					
-				
 				this.myStateBoxHook="FOUND";
 			}
-	
 	}
+
+
+	if(this.myStateBoxHook=="FOUND"){
+		this.box.x=this.drone.x;
+		this.box.z=this.drone.z;
+		this.box.y=this.EndHook;
+	}
+
+	
 
 	//console.log(this.drone.y);
 	//console.log(this.drone.hook.heigth);
