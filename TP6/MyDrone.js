@@ -304,7 +304,7 @@ var propellerSpeed = {
   		FAST: 2,
   	}
 
-
+//FIXME comparing strings instead of using enum
 MyDrone.prototype.moveLeft = function(){
 	this.myStateRotacion="LEFT";
 
@@ -601,5 +601,5 @@ MyDrone.prototype.pullHook = function(){
 }
 
 MyDrone.prototype.getHookHeight = function(){
-	return (0.5 + this.y - this.hook.getLength() * this.scale);
+	return (this.scale + this.y - this.hook.getLength() * this.scale);
 }
