@@ -179,12 +179,20 @@ LightingScene.prototype.init = function(application) {
 	//Box pattern
 	this.boxPattern = new CGFappearance(this);
 	this.boxPattern.loadTexture("../resources/images/box.png");
+
 	
 	//Variable that loads the current Drone texture
 	//0-Geometric
 	//1-Camo
 	//2-Feup
 	this.currDroneAppearance = 0;
+
+	var StateBoxHook = {
+			FOUND:0,
+  			NOTFOUND: 1,};
+
+  	var myStateBoxHook = StateBoxHook.NOTFOUND;
+
 
 	this.activeAppearance = this.droneAppearances[2*this.currDroneAppearance];
 	this.activeHemiAppearance = this.droneAppearances[1 + 2*this.currDroneAppearance];
@@ -436,6 +444,8 @@ LightingScene.prototype.display = function() {
  */
 LightingScene.prototype.update = function(currTime){
 
+	//this.drone.hook.draw();
+
 	if(this.ClockActive)
 		this.clock.update(currTime);
 
@@ -491,7 +501,12 @@ LightingScene.prototype.update = function(currTime){
 		&&this.box.z > (this.drone.z-0.5)  && this.box.z < (this.drone.z+0.5)){
 		if(this.EndHook < this.box.y+0.5 && this.EndHook > this.box.y)
 			{
-				console.log("ENTREI");
+				if(this.myStateBoxHook!="FOUND"){
+					this.boxPattern.loadTexture("../resources/images/boxHook.png");
+				}
+					
+				
+				this.myStateBoxHook="FOUND";
 			}
 	
 	}
