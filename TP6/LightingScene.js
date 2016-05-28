@@ -514,7 +514,6 @@ LightingScene.prototype.update = function(currTime){
 		this.box.z=this.drone.z;
 		this.box.y=this.EndHook;
 	}
-
 	
 
 	//console.log(this.drone.y);
