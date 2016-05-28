@@ -62,7 +62,7 @@ LightingScene.prototype.init = function(application) {
 	this.materialD.setShininess(120);
 
 	this.chairAppearance = new CGFappearance(this);
-	this.chairAppearance.loadTexture("../resources/images/floor.png");
+	this.chairAppearance.loadTexture("../resources/images/table.png");
 
 
 	//floor texture
@@ -489,7 +489,7 @@ LightingScene.prototype.update = function(currTime){
 	
 	if( this.box.x > (this.drone.x-0.5)  && this.box.x < (this.drone.x+0.5)
 		&&this.box.z > (this.drone.z-0.5)  && this.box.z < (this.drone.z+0.5)){
-		if(this.EndHook < this.box.y)
+		if(this.EndHook < this.box.y+0.5 && this.EndHook > this.box.y)
 			{
 				console.log("ENTREI");
 			}

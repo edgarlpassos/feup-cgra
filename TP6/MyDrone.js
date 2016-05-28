@@ -37,7 +37,6 @@ function MyDrone(scene,scale) {
 	this.rightBase = new MyUnitCubeQuad(this.scene);
 	this.leftBase = new MyUnitCubeQuad(this.scene);
 
-
 	this.hook = new MyHook(this.scene);
 
 
@@ -195,6 +194,7 @@ MyDrone.prototype.draw = function() {
 		this.leftBase.display();
 	this.scene.popMatrix();
 
+	//Hoook
 	this.scene.pushMatrix();
 		this.scene.translate(0,-0.25,0);
 		this.hook.draw();
