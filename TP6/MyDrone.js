@@ -3,7 +3,7 @@
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
-function MyDrone(scene) {
+function MyDrone(scene,scale) {
 	CGFobject.call(this,scene);
 
 	//Flag that tells if the Drone is at the same position of the box
@@ -113,7 +113,7 @@ function MyDrone(scene) {
 
 	this.angle = 0; //degrees
 
-
+	this.scale = scale;
 
 
 	this.initBuffers();
@@ -127,6 +127,7 @@ MyDrone.prototype.draw = function() {
 	
 	 
 	//put the drone in an upright position
+	this.scene.scale(this.scale ,this.scale ,this.scale );
 	this.scene.rotate(Math.PI,0,1,0);
 
 	this.scene.pushMatrix();
@@ -194,7 +195,10 @@ MyDrone.prototype.draw = function() {
 		this.leftBase.display();
 	this.scene.popMatrix();
 
-	this.hook.draw();
+	this.scene.pushMatrix();
+		this.scene.translate(0,-0.25,0);
+		this.hook.draw();
+	this.scene.popMatrix();
 	
 	this.scene.pushMatrix();
 	this.scene.activeAppearance.apply();
@@ -586,11 +590,16 @@ MyDrone.prototype.update = function(){
 }
 
 MyDrone.prototype.releaseHook = function(){
+	if(this.getHookHeight() > 0)
 	this.hook.releaseHook();
 }
 
 
 MyDrone.prototype.pullHook = function(){
-	if(this.hook.height>0)
+	if(this.hook.cableLength>0)
 		this.hook.pullHook();	
+}
+
+MyDrone.prototype.getHookHeight = function(){
+	return (0.5 + this.y - this.hook.getLength() * this.scale);
 }

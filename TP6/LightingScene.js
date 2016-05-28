@@ -135,7 +135,7 @@ LightingScene.prototype.init = function(application) {
 	this.ClockActive = true;
 	this.speed = 3;
 
-	this.drone = new MyDrone(this);
+	this.drone = new MyDrone(this,0.6);
 
 	//temporary for modelling
 	this.propeller = new MyPropeller(this);
@@ -406,7 +406,6 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 
 		this.translate(this.drone.x,this.drone.y,this.drone.z);
-		this.scale(0.6,0.6,0.6);
 		this.rotate(this.drone.r_y,0,1,0);
 		this.rotate(this.drone.r_x,1,0,0);
 		this.rotate(this.drone.r_z,0,0,1);
@@ -483,12 +482,13 @@ LightingScene.prototype.update = function(currTime){
 
 
 	//Coordenate y of the End of the hook
-	this.EndHook = this.drone.y - this.drone.hook.height;
+	this.EndHook = this.drone.getHookHeight();
 	console.log(this.EndHook);
 
 	//Drone is at the same position of the box
 	
-	if( this.box.x > (this.drone.x-0.5)  && this.box.x < (this.drone.x+0.5)){
+	if( this.box.x > (this.drone.x-0.5)  && this.box.x < (this.drone.x+0.5)
+		&&this.box.z > (this.drone.z-0.5)  && this.box.z < (this.drone.z+0.5)){
 		if(this.EndHook < this.box.y)
 			{
 				console.log("ENTREI");
