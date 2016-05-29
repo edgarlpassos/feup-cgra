@@ -196,8 +196,12 @@ LightingScene.prototype.init = function(application) {
 			FOUND:0,
   			NOTFOUND: 1,};
 
-  	var myStateBoxHook = StateBoxHook.NOTFOUND;
+  	var StateBoxHookDestiny = {
+			FOUND:0,
+  			NOTFOUND: 1,};
 
+  	var myStateBoxHook = StateBoxHook.NOTFOUND;
+	var myStateBoxHookDestiny = StateBoxHookDestiny.NOTFOUND;
 
 	this.activeAppearance = this.droneAppearances[2*this.currDroneAppearance];
 	this.activeHemiAppearance = this.droneAppearances[1 + 2*this.currDroneAppearance];
@@ -516,21 +520,45 @@ LightingScene.prototype.update = function(currTime){
 				this.myStateBoxHook="FOUND";
 			}
 	}
+	
+	console.log("Box");
+	console.log(this.box.x);
+	console.log("Destiny");
+	console.log(this.destiny.x);
 
+	//Drone with box found the destiny position
 
-	if(this.myStateBoxHook=="FOUND"){
+	if(this.box.x>this.destiny.x-0.5 && this.box.x<this.destiny.x+0.5){
+		if(this.box.z>this.destiny.z-0.5 && this.box.z < this.destiny.z+0.5)
+			if(this.box.y>this.destiny.y-0.5 && this.box.y <this.destiny.y+0.5)
+				if(this.myStateBox!="NOTFOUND"){
+				if(this.myStateBoxHookDestiny!="FOUND"){
+					this.boxPattern.loadTexture("../resources/images/box.png");
+				}
+				this.myStateBoxHookDestiny="FOUND";
+			}
+				
+	}
 		
+
+	if(this.myStateBoxHook=="FOUND" && this.myStateBoxHookDestiny!="FOUND"){
 		this.box.x=this.drone.x;
 		this.box.z=this.drone.z;
 		this.box.y=this.EndHook;
 	}
-
 	
 
-	//console.log(this.drone.y);
-	//console.log(this.drone.hook.heigth);
-	
-	
+	/*if(this.box.z>this.destiny+0.5 && this.box.z< this.destiny-0.5)
+			{
+				if(this.myStateBoxHook!="FOUND"){
+					this.boxPattern.loadTexture("../resources/images/box.png");
+				}
+				this.myStateBoxHookDestiny="FOUND";
+				this.myStateBoxHook="NOTFOUND";
+			} */
+
+
+
 
 };
 
