@@ -491,8 +491,8 @@ LightingScene.prototype.update = function(currTime){
 	//Drone is at the same position of the box
 	
 	if( this.box.x > (this.drone.x-0.5)  && this.box.x < (this.drone.x+0.5)
-		&&this.box.z > (this.drone.z-0.5)  && this.box.z < (this.drone.z+0.5)){
-		if(this.EndHook < this.box.y+0.5 && this.EndHook > this.box.y)
+		&&this.box.z > (this.drone.z-0.5)  && this.box.z < (this.drone.z+0.5) 
+	  && this.EndHook < this.box.y+0.5 && this.EndHook > this.box.y-0.5){
 			{
 				if(this.myStateBoxHook!="FOUND"){
 					this.boxPattern.loadTexture("../resources/images/boxHook.png");
