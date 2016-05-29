@@ -67,18 +67,18 @@ MyPropeller.prototype.setSpeed = function(speed){
 	this.speed = speed;
 };
 
-MyPropeller.prototype.update = function(){
+MyPropeller.prototype.update = function(scale){
 	switch(this.speed){
 		case this.propellerSpeed.SLOW:
-			this.angle += 0.2 * 2*Math.PI*this.scene.updateRate*0.001 * this.direction;
+			this.angle += scale * 0.2 * 2*Math.PI*this.scene.updateRate*0.001 * this.direction;
 			break;
 
 		case this.propellerSpeed.NORMAL:
-			this.angle += 2*Math.PI*this.scene.updateRate*0.001 * this.direction;
+			this.angle += scale * 2 * Math.PI*this.scene.updateRate*0.001 * this.direction;
 			break;
 
 		case this.propellerSpeed.FAST:
-			this.angle += 10 * 2*Math.PI*this.scene.updateRate*0.001 * this.direction;
+			this.angle += scale * 10 * 2*Math.PI*this.scene.updateRate*0.001 * this.direction;
 			break;
 	}
 };

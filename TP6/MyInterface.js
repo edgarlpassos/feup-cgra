@@ -50,7 +50,7 @@ MyInterface.prototype.init = function(application) {
 	// this.speed=3;
 	// min and max values can be specified as parameters
 	
-	this.gui.add(this.scene, 'speed', -5, 5);
+	this.gui.add(this.scene, 'speed', 0.1, 2.0);
 
 	//drop down menu to select the Drone texture
 	this.gui.add(this.scene, 'currDroneAppearance',{Geometric:0,Camo:1,Feup:2});
