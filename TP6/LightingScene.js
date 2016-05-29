@@ -93,7 +93,7 @@ LightingScene.prototype.init = function(application) {
 	//boards
 	//slidesAppearance
 	this.slidesAppearance = new CGFappearance(this);
-	this.slidesAppearance.loadTexture("../resources/images/slides.png");
+	this.slidesAppearance.loadTexture("../resources/images/slides.jpg");
 	this.slidesAppearance.setDiffuse(0.9,0.9,0.9,1);
 	this.slidesAppearance.setSpecular(0.1,0.1,0.1,1);
 	this.slidesAppearance.setShininess(30);
@@ -530,7 +530,7 @@ LightingScene.prototype.update = function(currTime){
 
 	if(this.box.x>this.destiny.x-0.5 && this.box.x<this.destiny.x+0.5){
 		if(this.box.z>this.destiny.z-0.5 && this.box.z < this.destiny.z+0.5)
-			if(this.box.y>this.destiny.y-0.5 && this.box.y <this.destiny.y+0.5)
+			if(this.box.y>this.destiny.y-0.7 && this.box.y <this.destiny.y+0.7)
 				if(this.myStateBox!="NOTFOUND"){
 				if(this.myStateBoxHookDestiny!="FOUND"){
 					this.boxPattern.loadTexture("../resources/images/box.png");
