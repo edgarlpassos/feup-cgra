@@ -73,19 +73,23 @@ MyInterface.prototype.processKeyDown = function(event) {
 	switch (event.keyCode)
 	{
 		case (65):	// only works for capital 'A', as it is
-			this.scene.drone.moveLeft();
+			//this.scene.drone.moveLeft();
+			this.scene.drone.moveRight();
 			console.log("Key 'A' pressed");
 			break;
 		case (97):	//a
-			this.scene.drone.moveLeft();
+			//this.scene.drone.moveLeft();
+			this.scene.drone.moveRight();
 			console.log("Key 'A' pressed");
 			break;
 		case (68)://D
-			this.scene.drone.moveRight();
+			//this.scene.drone.moveRight();
+			this.scene.drone.moveLeft();
 			console.log("Key D pressed");
 			break;
 		case(100)://d
-			this.scene.drone.moveRight();
+			//this.scene.drone.moveRight();
+			this.scene.drone.moveLeft();
 			console.log("Key D pressed");
 			break;
 		case(119)://w
@@ -119,6 +123,22 @@ MyInterface.prototype.processKeyDown = function(event) {
 		case(106): //j
 			this.scene.drone.goDown();
 			console.log("Key S pressed");
+			break;
+		case(80): //P
+			this.scene.drone.pullHook();
+			console.log("Key P pressed");
+			break;
+		case(112): //p
+			this.scene.drone.pullHook();
+			console.log("Key p pressed");
+			break;
+		case(76): //L
+			this.scene.drone.releaseHook();
+			console.log("Key L pressed");
+			break;
+		case(108): //l
+			this.scene.drone.releaseHook();
+			console.log("Key l pressed");
 			break;
 
 	};
@@ -135,19 +155,23 @@ MyInterface.prototype.processKeyUp = function(event) {
 	switch (event.keyCode)
 	{
 		case (65):	// only works for capital 'A', as it is
-			this.scene.drone.stopMoveLeft();
+			//this.scene.drone.stopMoveLeft();
+			this.scene.drone.stopMoveRight();
 			console.log("Key 'A' pressed");
 			break;
 		case (97):	//a
-			this.scene.drone.stopMoveLeft();
+			//this.scene.drone.stopMoveLeft();
+			this.scene.drone.stopMoveRight();
 			console.log("Key 'A' pressed");
 			break;
 		case (68)://D
-			this.scene.drone.stopMoveRight();
+			//this.scene.drone.stopMoveRight();
+			this.scene.drone.stopMoveLeft();
 			console.log("Key D pressed");
 			break;
 		case(100)://d
-			this.scene.drone.stopMoveRight();
+			//this.scene.drone.stopMoveRight();
+			this.scene.drone.stopMoveLeft();
 			console.log("Key D pressed");
 			break;
 		case(119)://w
@@ -185,4 +209,3 @@ MyInterface.prototype.processKeyUp = function(event) {
 
 	};
 };
-

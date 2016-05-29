@@ -3,10 +3,14 @@
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
-function MyDrone(scene) {
+function MyDrone(scene,scale) {
 	CGFobject.call(this,scene);
 
-
+	//Flag that tells if the Drone is at the same position of the box
+	//0 means not the same position, 1 mean same position
+	this.BoxFlag=0;
+	
+	
 	this.center=new MyHemisphere(this.scene,12,1);
 	this.base = new MyCylinder(this.scene,12,7);
 
@@ -33,8 +37,10 @@ function MyDrone(scene) {
 	this.rightBase = new MyUnitCubeQuad(this.scene);
 	this.leftBase = new MyUnitCubeQuad(this.scene);
 
+	this.hook = new MyHook(this.scene);
 
-	//metal appearance used for propellers and legs
+
+	//metal appearance used for propellers, legs and cable
 	this.metalAppearance = new CGFappearance(this.scene);
 	this.metalAppearance.setShininess(300);
 	this.metalAppearance.setSpecular(0.9,0.9,0.9,1);
@@ -106,9 +112,7 @@ function MyDrone(scene) {
 
 	this.angle = 0; //degrees
 
-
-
-
+	this.scale = scale;
 
 
 	this.initBuffers();
@@ -122,9 +126,12 @@ MyDrone.prototype.draw = function() {
 	
 	 
 	//put the drone in an upright position
+	this.scene.scale(this.scale ,this.scale ,this.scale );
 	this.scene.rotate(Math.PI,0,1,0);
 
 	this.scene.pushMatrix();
+
+	
 
 	//front propeller
 	this.metalAppearance.apply();
@@ -187,8 +194,13 @@ MyDrone.prototype.draw = function() {
 		this.leftBase.display();
 	this.scene.popMatrix();
 
-
-
+	//Hoook
+	this.scene.pushMatrix();
+		this.scene.translate(0,-0.25,0);
+		this.scene.rotate(this.r_x,1,0,0);
+		this.hook.draw();
+	this.scene.popMatrix();
+	
 	this.scene.pushMatrix();
 	this.scene.activeAppearance.apply();
 
@@ -293,7 +305,7 @@ var propellerSpeed = {
   		FAST: 2,
   	}
 
-
+//FIXME comparing strings instead of using enum
 MyDrone.prototype.moveLeft = function(){
 	this.myStateRotacion="LEFT";
 
@@ -576,4 +588,19 @@ MyDrone.prototype.update = function(propellerScale){
 	this.z+=Math.cos(this.r_y)*this.velocity;
 	this.x+=Math.sin(this.r_y)*this.velocity;
 
+}
+
+MyDrone.prototype.releaseHook = function(){
+	if(this.getHookHeight() > 0)
+	this.hook.releaseHook();
+}
+
+
+MyDrone.prototype.pullHook = function(){
+	if(this.hook.cableLength>0)
+		this.hook.pullHook();	
+}
+
+MyDrone.prototype.getHookHeight = function(){
+	return (this.scale + this.y - this.hook.getLength() * this.scale);
 }

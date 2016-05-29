@@ -62,7 +62,7 @@ LightingScene.prototype.init = function(application) {
 	this.materialD.setShininess(120);
 
 	this.chairAppearance = new CGFappearance(this);
-	this.chairAppearance.loadTexture("../resources/images/floor.png");
+	this.chairAppearance.loadTexture("../resources/images/table.png");
 
 
 	//floor texture
@@ -84,13 +84,16 @@ LightingScene.prototype.init = function(application) {
 	//clock
 	this.clock = new MyClock(this,12,1);
 
+	//weight
+	this.box = new MyBox(this);
+
 	this.enableTextures(true);
 
 
 	//boards
 	//slidesAppearance
 	this.slidesAppearance = new CGFappearance(this);
-	this.slidesAppearance.loadTexture("../resources/images/slides.png");
+	this.slidesAppearance.loadTexture("../resources/images/slides.jpg");
 	this.slidesAppearance.setDiffuse(0.9,0.9,0.9,1);
 	this.slidesAppearance.setSpecular(0.1,0.1,0.1,1);
 	this.slidesAppearance.setShininess(30);
@@ -132,13 +135,15 @@ LightingScene.prototype.init = function(application) {
 	this.ClockActive = true;
 	this.speed = 3;
 
-	this.drone = new MyDrone(this);
+	this.drone = new MyDrone(this,0.6);
 
 	//temporary for modelling
 	this.propeller = new MyPropeller(this);
 	this.leg = new MyDroneLeg(this);
 
 	this.chair = new MyChair(this);
+	this.hook = new MyHook(this);
+	this.destination = new MyBoxDestination(this);
 
 	//array to hold the appearances
 	//as some appearances have a special corresponding pattern for the center hemisphere
@@ -172,11 +177,31 @@ LightingScene.prototype.init = function(application) {
 	this.feupHemiPattern.loadTexture(this.face);
 	this.droneAppearances.push(this.feupPattern,this.feupHemiPattern);
 
+	//Box pattern
+	this.boxPattern = new CGFappearance(this);
+	this.boxPattern.loadTexture("../resources/images/box.png");
+
+	//Boxdestination pattern
+	this.boxDestinationPattern = new CGFappearance(this);
+	this.boxDestinationPattern.loadTexture("../resources/images/boxD.png");
+
+	
 	//Variable that loads the current Drone texture
 	//0-Geometric
 	//1-Camo
 	//2-Feup
-	this.currDroneAppearance = 0;
+	this.currDroneAppearance = 1;
+
+	var StateBoxHook = {
+			FOUND:0,
+  			NOTFOUND: 1,};
+
+  	var StateBoxHookDestination = {
+			FOUND:0,
+  			NOTFOUND: 1,};
+
+  	var myStateBoxHook = StateBoxHook.NOTFOUND;
+	var myStateBoxHookDestation = StateBoxHookDestination.NOTFOUND;
 
 	this.activeAppearance = this.droneAppearances[2*this.currDroneAppearance];
 	this.activeHemiAppearance = this.droneAppearances[1 + 2*this.currDroneAppearance];
@@ -267,6 +292,13 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
+
+
+	//destination
+	this.pushMatrix();
+		this.boxDestinationPattern.apply();
+		this.destination.draw();
+	this.popMatrix();
 
 	// Floor
 	this.pushMatrix();
@@ -390,30 +422,27 @@ LightingScene.prototype.display = function() {
 		this.paperPlane.display();
 		this.popMatrix();
 
-	//Drone
-	this.pushMatrix();
+		//Drone
+		this.pushMatrix();
 
-		this.translate(this.drone.x,this.drone.y,this.drone.z);
-		this.scale(0.6,0.6,0.6);
-		this.rotate(this.drone.r_y,0,1,0);
-		this.rotate(this.drone.r_x,1,0,0);
-		this.rotate(this.drone.r_z,0,0,1);
-		this.drone.draw();
+			this.translate(this.drone.x,this.drone.y,this.drone.z);
+			this.rotate(this.drone.r_y,0,1,0);
+			this.rotate(this.drone.r_x,1,0,0);
+			this.rotate(this.drone.r_z,0,0,1);
+			this.drone.draw();
+
+		this.popMatrix();
 
 	this.popMatrix();
 
-
-	
-	/*this.rotate(this.drone.r_y,0,1,0);
-	this.rotate(this.drone.r_x,1,0,0);
-	this.rotate(this.drone.r_z,0,0,1);
-	this.drone.draw();*/
-
+		
+	//Weight
+	this.pushMatrix();
+		this.boxPattern.apply();
+		this.box.draw();
+	this.popMatrix();
 
 	// ---- END Primitive drawing section
-	
-
-
 };
 
 /**
@@ -451,12 +480,47 @@ LightingScene.prototype.update = function(currTime){
 
 	this.paperPlane.update();
 
-	
 	//Drone
 	this.activeAppearance = this.droneAppearances[2*this.currDroneAppearance];
 	this.activeHemiAppearance = this.droneAppearances[1 + 2*this.currDroneAppearance];
 	this.drone.update(this.speed);
+
+	//Coordenate y of the End of the hook
+	this.EndHook = this.drone.getHookHeight();
 	
+	//Drone is at the same position of the box
+	
+	if( this.box.x > (this.drone.x-0.5)  && this.box.x < (this.drone.x+0.5)
+		&&this.box.z > (this.drone.z-0.5)  && this.box.z < (this.drone.z+0.5)){
+		if(this.EndHook < this.box.y+0.5 && this.EndHook > this.box.y)
+			{
+				if(this.myStateBoxHook!="FOUND"){
+					this.boxPattern.loadTexture("../resources/images/boxHook.png");
+				}
+				this.myStateBoxHook="FOUND";
+			}
+	}
+
+	//Drone with box found the destination position
+
+	if(this.box.x>this.destination.x-0.5 && this.box.x<this.destination.x+0.5){
+		if(this.box.z>this.destination.z-0.5 && this.box.z < this.destination.z+0.5)
+			if(this.box.y>this.destination.y-0.7 && this.box.y <this.destination.y+0.7)
+				if(this.myStateBox!="NOTFOUND"){
+				if(this.myStateBoxHookDestination !="FOUND"){
+					this.boxPattern.loadTexture("../resources/images/box.png");
+				}
+				this.myStateBoxHookDestination="FOUND";
+			}	
+	}
+		
+
+	if(this.myStateBoxHook=="FOUND" && this.myStateBoxHookDestination !="FOUND"){
+		this.box.x=this.drone.x;
+		this.box.z=this.drone.z;
+		this.box.setAngle(this.drone.r_y);
+		this.box.y=this.EndHook;
+	}
 };
 
 
