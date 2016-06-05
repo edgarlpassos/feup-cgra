@@ -29,7 +29,7 @@ serialInclude([
 	'MyChair.js',
 	'MyHook.js',
 	'MyBox.js',
-	'MyBoxDestiny.js',
+	'MyBoxDestination.js',
 
 
 	main=function() {
